@@ -44,7 +44,7 @@ html {
 }
 
 .hero{
-    background-image: url('https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1800&q=80');
+    background-image: url('https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -78,7 +78,7 @@ input[type="number"] {
 
 @media (max-width: 640px) {
   .hero {
-    background-image: url('https://images.unsplash.com/photo-1507120410856-1f35574c3b45?auto=format&fit=crop&w=900&q=80');
+    background-image: url('https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=900&q=80');
   }
 }
 
