@@ -46,8 +46,7 @@ html {
 .hero{
     background-image: url('https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-position: top;
 }
 
 @media (max-width: 768px) {
