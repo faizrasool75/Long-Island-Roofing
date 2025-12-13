@@ -175,6 +175,16 @@ function App() {
         quoteActive ? "border-[#7FFF00] shadow-[0_0_25px_rgba(127,255,0,0.55)]" : "border-transparent"
       }`}
     >
+      {variant === "modal" && (
+        <button
+          type="button"
+          onClick={() => setShowModalQuote(false)}
+          className="self-end text-white text-2xl leading-none"
+          aria-label="Close quote form"
+        >
+          ×
+        </button>
+      )}
       <h2 className="fontMont font-semibold text-2xl sm:text-3xl text-white">
         GET A <span className="text-[#7FFF00]">QUICK</span> QUOTE!
       </h2>
