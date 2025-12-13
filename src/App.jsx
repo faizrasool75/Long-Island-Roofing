@@ -373,7 +373,7 @@ function App() {
             <span className="text-[#7FFF00]">EXPERTS</span> <br />
             YOU CAN <span className="text-[#7FFF00]">TRUST</span>
           </h1>
-          <h1 className="text-[2rem] fontNF text-white leading-[1.2] sm:hidden text-center fade-heading">
+          <h1 className="text-[2rem] fontNF text-white leading-[1.2] sm:hidden text-center fade-heading hero-mobile-heading">
             RESIDENTIAL <span className="font-extrabold">&</span>COMMERCIAL
             <span className="text-[#7FFF00]">ROOFING</span>
             <span className="text-[#7FFF00]">EXPERTS</span> YOU CAN
@@ -424,7 +424,7 @@ function App() {
         <div className="w-full sm:w-[50%] h-full">
           <img
             className="w-full h-full object-cover rounded-3xl"
-            src="/assets/images/sliderimage-4.png"
+            src="https://images.pexels.com/photos/5549240/pexels-photo-5549240.jpeg?_gl=1*d6cx0t*_ga*MTAxMzMxNDc4MS4xNzY1NjE2ODY5*_ga_8JE65Q40S6*czE3NjU2MTg5NzMkbzIkZzEkdDE3NjU2MjA2MjUkajIzJGwwJGgw"
             alt=""
           />
         </div>
@@ -446,7 +446,7 @@ function App() {
 
       <div className="section3 fade-section scroll-reveal" id="services">
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
-          <h1 className="fontNF text-[#7FFF00] text-2xl sm:text-4xl uppercase w-full sm:w-[50%] hero-heading-shadow">
+          <h1 className="fontNF text-[#7FFF00] text-2xl sm:text-4xl uppercase w-full sm:w-[50%] hero-heading-shadow fade-heading is-visible text-center">
             Our Services
           </h1>
           <p className="text-start text-lg fontMont font-normal w-1/2 hidden sm:block">
