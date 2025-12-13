@@ -187,16 +187,6 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  const handleQuoteScroll = () => {
-    quickQuoteRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    setQuoteActive(true);
-    setShowModalQuote(true);
-    if (quoteTimerRef.current) {
-      clearTimeout(quoteTimerRef.current);
-    }
-    quoteTimerRef.current = setTimeout(() => setQuoteActive(false), 2200);
-  };
-
   useEffect(() => {
     return () => {
       if (quoteTimerRef.current) {
@@ -213,6 +203,35 @@ function App() {
     }
   }, [showModalQuote]);
 
+  const flashQuoteActive = () => {
+    setQuoteActive(true);
+    if (quoteTimerRef.current) {
+      clearTimeout(quoteTimerRef.current);
+    }
+    quoteTimerRef.current = setTimeout(() => setQuoteActive(false), 2200);
+  };
+
+  const handleQuoteScroll = () => {
+    quickQuoteRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setShowModalQuote(true);
+    flashQuoteActive();
+  };
+
+  const handleQuoteSubmit = (event, options = {}) => {
+    event.preventDefault();
+    flashQuoteActive();
+    if (options.closeModal) {
+      setShowModalQuote(false);
+    }
+    // Placeholder: hook up API call or validation here later.
+  };
+
+  const handleFooterSubmit = (event) => {
+    event.preventDefault();
+    flashQuoteActive();
+    // Placeholder: handle footer form data submission here.
+  };
+
   const renderQuoteForm = (variant = "hero") => (
     <form
       id="quick-quote"
@@ -220,6 +239,7 @@ function App() {
       className={`w-full max-sm:rounded-xl sm:w-[80%] bg-black sm:bg-black/70 p-8 flex flex-col gap-6 justify-start items-center border-2 transition ${
         quoteActive ? "border-[#7FFF00] shadow-[0_0_25px_rgba(127,255,0,0.55)]" : "border-transparent"
       }`}
+      onSubmit={(event) => handleQuoteSubmit(event, { closeModal: variant === "modal" })}
     >
       {variant === "modal" && (
         <button
@@ -661,7 +681,7 @@ function App() {
           </button>
           <button className="fontMont text-white font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-transparent hover:bg-[#ffffff] duration-200 ease-in hover:text-black mt-4 border border-[#7FFF00] hover:border-transparent">
             Call Now: (631) 484-0098
-            <span className="w-7 h-7 p-2 bg-white flex justify-center rounded-full items-center">
+            <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
               <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
             </span>
           </button>
@@ -699,7 +719,10 @@ function App() {
             <p className="text-[3vw] sm:text-[0.8vw] text-white fontMont max-sm:mt-4 max-sm:text-center">
               Get a no-obligation quote from our expert roofing and siding team. Fast, reliable, and trusted by homeowners across Long Island.
             </p>
-            <form className="overflow-hidden w-full items-center flex flex-col justify-between items-center pt-4">
+            <form
+              onSubmit={handleFooterSubmit}
+              className="overflow-hidden w-full items-center flex flex-col justify-between items-center pt-4"
+            >
               <div className="w-full flex flex-col sm:flex-row sm:justify-between max-sm:gap-6">
                 <input
                   className="w-full sm:w-[30%] outline-none border bg-transparent border-transparent text-white border-b-[#7FFF00] py-2 placeholder:fontMont placeholder:text-white placeholder:font-light placeholder:italic"
@@ -722,7 +745,10 @@ function App() {
                 placeholder="Message"
                 className="w-full outline-none max-sm:mt-4 border bg-transparent border-transparent text-white border-b-[#7FFF00] py-2 placeholder:fontMont placeholder:text-white placeholder:font-light placeholder:italic"
               ></textarea>
-              <button className="bg-[#7FFF00] px-4 py-1 mt-5 rounded-3xl fontMont font-bold uppercase text-sm hover:text-[#7FFF00] hover:bg-black transition-all duration-300">
+              <button
+                type="submit"
+                className="bg-[#7FFF00] px-4 py-1 mt-5 rounded-3xl fontMont font-bold uppercase text-sm hover:text-[#7FFF00] hover:bg-black transition-all duration-300"
+              >
                 Get a Quote
               </button>
             </form>
