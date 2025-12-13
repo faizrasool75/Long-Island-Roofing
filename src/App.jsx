@@ -421,8 +421,10 @@ function App() {
                       <span className="flex-1 text-left text-sm font-bold uppercase text-black sm:text-base">
                         {service.title}
                       </span>
-                      <span className="text-xs font-semibold uppercase text-[#7FFF00]">
-                        {isOpen ? "Close" : "Open"}
+                      <span
+                        className={`accordion-indicator text-xl font-bold ${isOpen ? "rotate-45" : ""}`}
+                      >
+                        {isOpen ? "×" : "+"}
                       </span>
                     </button>
                     {isOpen && (

@@ -127,6 +127,11 @@ input[type="number"] {
       transform: translateY(0);
     }
 
+    .accordion-indicator {
+      color: #000;
+      transition: transform 0.3s ease;
+    }
+
     .swiper-pagination {
       width: 100%;
       display: flex;
