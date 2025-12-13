@@ -141,6 +141,24 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((button) => button.classList.add("btn-prep"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("btn-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    buttons.forEach((button) => observer.observe(button));
+    return () => observer.disconnect();
+  }, []);
+
   const handleQuoteScroll = () => {
     quickQuoteRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     setQuoteActive(true);
