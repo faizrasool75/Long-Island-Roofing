@@ -124,6 +124,8 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const headingEls = document.querySelectorAll("h1, h2, h3");
+    headingEls.forEach((el) => el.classList.add("fade-heading"));
     const elements = document.querySelectorAll(".fade-section, .fade-heading");
     const observer = new IntersectionObserver(
       (entries) => {
