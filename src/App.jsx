@@ -373,7 +373,7 @@ function App() {
             <span className="text-[#7FFF00]">EXPERTS</span> <br />
             YOU CAN <span className="text-[#7FFF00]">TRUST</span>
           </h1>
-          <h1 className="text-[2rem] fontNF text-white leading-[1.2] sm:hidden text-center fade-heading hero-mobile-heading">
+          <h1 className="text-[2rem] fontNF text-white leading-[49px] align-middle sm:hidden text-center fade-heading hero-mobile-heading">
             RESIDENTIAL <span className="font-extrabold">&</span>COMMERCIAL
             <span className="text-[#7FFF00]">ROOFING</span>
             <span className="text-[#7FFF00]">EXPERTS</span> YOU CAN
