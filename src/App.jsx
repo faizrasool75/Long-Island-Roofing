@@ -123,6 +123,22 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const elements = document.querySelectorAll(".fade-section");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   const handleQuoteScroll = () => {
     quickQuoteRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     setQuoteActive(true);
@@ -290,7 +306,7 @@ function App() {
         </button>
       </header>
 
-      <div className="hero bg-no-repeat bg-contain sm:bg-cover bg-top sm:bg-top-left flex-col sm:flex-row w-full min-h-screen pt-28 sm:pt-52 pb-6 sm:pb-16 flex justify-between items-center gap-6 px-2 sm:px-6 relative">
+      <div className="hero fade-section bg-no-repeat bg-contain sm:bg-cover bg-top sm:bg-top-left flex-col sm:flex-row w-full min-h-screen pt-28 sm:pt-52 pb-6 sm:pb-16 flex justify-between items-center gap-6 px-2 sm:px-6 relative">
         <div className="w-fit flex flex-col justify-start items-start gap-4 sm:pl-8">
           <h1 className="text-5xl fontNF text-white leading-[1.2] hidden sm:block">
             RESIDENTIAL <span className="font-extrabold">&</span><br />
@@ -342,7 +358,7 @@ function App() {
         ))}
       </div>
 
-      <div className="section-2 bg-[#CCE5FF] h-fit sm:h-[80dvh] w-full rounded-3xl flex flex-col sm:flex-row items-center pb-5 sm:pb-0 mb-5 sm:mb-10">
+      <div className="section-2 fade-section bg-[#CCE5FF] h-fit sm:h-[80dvh] w-full rounded-3xl flex flex-col sm:flex-row items-center pb-5 sm:pb-0 mb-5 sm:mb-10">
         <div className="w-full sm:w-[50%] h-full">
           <img
             className="w-full h-full object-cover rounded-3xl"
@@ -366,7 +382,7 @@ function App() {
         </div>
       </div>
 
-      <div className="section3" id="services">
+      <div className="section3 fade-section" id="services">
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
           <h1 className="fontNF text-[#7FFF00] text-2xl sm:text-4xl uppercase w-full sm:w-[50%]">
             Our Services
@@ -420,7 +436,10 @@ function App() {
         </div>
       </div>
 
-      <div className="section4 h-fit w-full relative px-10 items-start sm:flex mt-4 sm:mt-10 xl:pb-10" id="why-us">
+      <div
+        className="section4 fade-section h-fit w-full relative px-10 items-start sm:flex mt-4 sm:mt-10 xl:pb-10"
+        id="why-us"
+      >
         <div className="w-full sm:w-[55%] h-full flex gap-2 flex-col items-center sm:items-start py-8">
           <h1 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl uppercase">Why Choose</h1>
           <h2 className="max-sm:text-center text-black fontMont text-xl sm:text-4xl font-black sm:whitespace-nowrap">
@@ -466,7 +485,10 @@ function App() {
         </div>
       </div>
 
-      <div className="w-full min-h-fit sm:min-h-screen py-8 pb-20 sm:pb-12 flex flex-col gap-12" id="recent-projects">
+      <div
+        className="w-full min-h-fit sm:min-h-screen py-8 pb-20 sm:pb-12 flex flex-col gap-12 fade-section"
+        id="recent-projects"
+      >
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
           <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center">OUR RECENT PROJECTS</h2>
           <p className="text-lg fontMont font-normal w-1/2 hidden sm:block">
@@ -514,7 +536,7 @@ function App() {
         </div>
       )}
 
-      <div className="w-full min-h-scree flex flex-col gap-12 py-6 pb-12">
+      <div className="w-full min-h-scree flex flex-col gap-12 py-6 pb-12 fade-section">
         <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center">WHAT OUR CLIENTS SAY</h2>
         <div className="w-full flex flex-col sm:flex-row justify-between gap-6 items-center">
           {[
