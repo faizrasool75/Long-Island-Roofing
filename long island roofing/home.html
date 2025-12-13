@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="preload"
+      href="./assets/fonts/NFUltra-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="main p-2 pb-0">
+      <!-- MOBILE MENU -->
+       <div
+  id="mobileMenu"
+  class="fixed top-0 right-0 h-full w-64 bg-black
+   text-white z-[99999] translate-x-full transition-transform duration-300 md:hidden p-6"
+>
+<div class="flex justify-end items-start">
+  <button
+    id="menuBtnClose"
+          class="w-12 h-12 rounded-full 
+          hover:text-black hover:bg-white
+           text-black bg-[#7FFF00] flex sm:hidden 
+           justify-center items-center text-2xl"
+  >
+    <i class="ri-close-line"></i>
+  </button>
+</div>
+  <ul class="space-y-6 text-lg font-semibold">
+    <li><a href="#" class="hover:text-[#7CFF00]">Home</a></li>
+    <li><a href="#" class="hover:text-[#7CFF00]">About Us</a></li>
+    <li><a href="#" class="hover:text-[#7CFF00]">Our Services</a></li>
+    <li><a href="#" class="hover:text-[#7CFF00]">Why Choose Us</a></li>
+    <li>
+     <button
+            class="fontMont mt-12 text-black font-bold text-sm 
+            sm:text-base rounded-xl px-6 py-3 flex justify-center 
+            items-center gap-2 bg-[#7FFF00] hover:bg-white duration-200
+             ease-in hover:text-black"
+          >
+            Get a Quote
+            <span
+              class="w-6 h-6 p-2 bg-black flex justify-center rounded-full items-center"
+            >
+              <img
+                src="./assets/svg/arrow.svg"
+                alt=""
+                class="w-full h-full object-contain"
+              />
+            </span>
+          </button>
+    </li>
+  </ul>
+</div>
+      <!-- HEADER -->
+      <header
+        class="w-full flex justify-between items-center fixed top-0 left-0 right-0 px-6 py-3 pt-7 z-[9999]"
+      >
+        <img src="./assets/images/logo.png" alt="" class="w-32 sm:w-52" />
+        <div class="hidden sm:flex justtify-start items-center gap-8">
+          <div class="navMenu flex justify-start items-center gap-8">
+            <a
+              href=""
+              class="fontMont font-normal text-base hover:text-[#7FFF00] border border-transparent hover:border-b-[#7FFF00] duration-200 ease-in"
+              >Home</a
+            >
+            <a
+              href=""
+              class="fontMont font-normal text-base hover:text-[#7FFF00] border border-transparent hover:border-b-[#7FFF00] duration-200 ease-in"
+              >About Us</a
+            >
+            <a
+              href=""
+              class="fontMont font-normal text-base hover:text-[#7FFF00] border border-transparent hover:border-b-[#7FFF00] duration-200 ease-in"
+              >Our Services</a
+            >
+            <a
+              href=""
+              class="fontMont font-normal text-base hover:text-[#7FFF00] border border-transparent hover:border-b-[#7FFF00] duration-200 ease-in"
+              >Why Choose</a
+            >
+          </div>
+          <button
+            class="fontMont font-extrabold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00]"
+          >
+            Get a Quote
+            <span
+              class="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center"
+            >
+              <img
+                src="./assets/svg/arrow.svg"
+                alt=""
+                class="w-full h-full object-contain"
+              />
+            </span>
+          </button>
+        </div>
+
+        <button
+         id="menuBtn"
+          class="w-12 h-12 rounded-full 
+          hover:text-[#7FFF00] hover:bg-black
+           text-black bg-[#7FFF00] flex sm:hidden 
+           justify-center items-center"
+        >
+          <i class="ri-menu-3-line text-xl font-extrabold"></i>
+        </button>
+      </header>
+      <!-- HERO SECTION -->
+      <div
+        class="hero bg-no-repeat bg-contain sm:bg-cover bg-top sm:bg-top-left flex-col sm:flex-row w-full min-h-screen pt-36 sm:pt-52 pb-6 sm:pb-16 flex justify-between items-center gap-6 px-2 sm:px-6"
+      >
+        <div
+          class="w-fit flex flex-col justify-start items-start gap-4 sm:pl-8"
+        >
+          <h1 class="text-5xl fontNF text-white leading-[1.2] hidden sm:block">
+            RESIDENTIAL <span class="font-extrabold">&</span><br />
+            COMMERCIAL <br />
+            <span class="text-[#7FFF00]">ROOFING</span> <br />
+            <span class="text-[#7FFF00]">EXPERTS</span> <br />
+            YOU CAN <span class="text-[#7FFF00]">TRUST</span>
+          </h1>
+          <h1
+            class="text-[2rem] fontNF text-white leading-[1.2] sm:hidden text-center"
+          >
+            RESIDENTIAL <span class="font-extrabold">&</span>COMMERCIAL
+            <span class="text-[#7FFF00]">ROOFING</span>
+            <span class="text-[#7FFF00]">EXPERTS</span> YOU CAN
+            <span class="text-[#7FFF00]">TRUST</span>
+          </h1>
+          <p class="font-light text-white fontMont text-xl hidden sm:block">
+            At
+            <span class="font-semibold">Long Island Construction Plus+</span>,
+            we bring over a <br />
+            decade of experience delivering reliable, high-quality <br />
+            roofing and exterior solutions for homes and businesses <br />
+            across Long Island. Our family-owned team is known for <br />
+            honest service, expert craftsmanship, and long-lasting <br />
+            results you can count on.
+          </p>
+          <p
+            class="font-light text-white fontMont text-center text-base sm:hidden"
+          >
+            At
+            <span class="font-semibold">Long Island Construction Plus+</span>,
+            we bring over a decade of experience delivering reliable,
+            high-quality roofing and exterior solutions for homes and businesses
+            across Long Island. Our family-owned team is known for honest
+            service, expert craftsmanship, and long-lasting results you can
+            count on.
+          </p>
+          <button
+            class="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4"
+          >
+            Request Your Free Estimate
+            <span
+              class="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center"
+            >
+              <img
+                src="./assets/svg/arrow.svg"
+                alt=""
+                class="w-full h-full object-contain"
+              />
+            </span>
+          </button>
+        </div>
+        <div
+          class="w-full sm:w-[40%] flex justify-center sm:justify-start items-center"
+        >
+          <form
+            action=""
+            class="w-full max-sm:rounded-xl sm:w-[80%] bg-black sm:bg-black/70 p-8 flex flex-col gap-6 justify-start items-center"
+          >
+            <h2 class="fontMont font-semibold text-2xl sm:text-3xl text-white">
+              GET A <span class="text-[#7FFF00]">QUICK</span> QUOTE!
+            </h2>
+            <input
+              type="text"
+              placeholder="Full Name"
+              class="w-full outline-none border bg-transparent border-transparent text-white border-b-[#7FFF00] py-2 placeholder:fontMont placeholder:text-white placeholder:font-light placeholder:italic"
+            />
+            <input
+              type="number"
+              placeholder="Phone Number"
+              class="w-full outline-none border bg-transparent border-transparent text-white border-b-[#7FFF00] py-2 placeholder:fontMont placeholder:text-white placeholder:font-light placeholder:italic"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              class="w-full outline-none border bg-transparent border-transparent text-white border-b-[#7FFF00] py-2 placeholder:fontMont placeholder:text-white placeholder:font-light placeholder:italic"
+            />
+            <textarea
+              rows="4"
+              placeholder="Message"
+              class="w-full outline-none border bg-transparent border-transparent text-white border-b-[#7FFF00] py-2 placeholder:fontMont placeholder:text-white placeholder:font-light placeholder:italic"
+            ></textarea>
+            <button
+              type="submit"
+              class="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center bg-[#7FFF00] hover:bg-white duration-200 ease-in"
+            >
+              Get a Quote
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- BANNER -->
+      <div
+        class="w-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 px-4 py-10"
+      >
+        <div class="p-1 flex justify-start items-center gap-2">
+          <img src="./assets/svg/bannericon-1.svg" alt="" class="w-5 sm:w-8" />
+          <p class="font-bold max-sm:text-center fontMont text-xs sm:text-sm">
+            SINCE 2012
+          </p>
+        </div>
+        <div class="p-1 flex justify-start items-center gap-2">
+          <img src="./assets/svg/bannericon-1.svg" alt="" class="w-5 sm:w-8" />
+          <p class="font-bold max-sm:text-center fontMont text-xs sm:text-sm">
+            Family-Owned
+          </p>
+        </div>
+        <div class="p-1 flex justify-start items-center gap-2">
+          <img src="./assets/svg/bannericon-3.svg" alt="" class="w-5 sm:w-8" />
+          <p class="font-bold max-sm:text-center fontMont text-xs sm:text-sm">
+            Licensed & Insured
+          </p>
+        </div>
+        <div class="p-1 flex justify-start items-center gap-2">
+          <img src="./assets/svg/bannericon-4.svg" alt="" class="w-5 sm:w-8" />
+          <p class="font-bold max-sm:text-center fontMont text-xs sm:text-sm">
+            Serving Suffolk & Nassau County
+          </p>
+        </div>
+      </div>
+      <!--SPECIAL OFFERS -->
+      <div
+        class="section-2 bg-[#CCE5FF] h-fit sm:h-[80dvh] w-full rounded-3xl flex flex-col sm:flex-row items-center pb-5 sm:pb-0 mb-5 sm:mb-10"
+      >
+        <div class="w-full sm:w-[50%] h-full">
+          <img
+            class="w-full h-full object-cover rounded-3xl"
+            src="./assets/images/sliderimage-4.png"
+            alt=""
+          />
+        </div>
+        <div
+          class="flex flex-col gap-5 w-full pt-5 sm:pt-0 sm:w-[50%] justify-center items-center"
+        >
+          <h2
+            class="text-[#7FFF00] text-3xl sm:text-4xl font-black uppercase [text-shadow:0_4px_7.7px_rgba(0,0,0,0.87)] fontNF max-sm:text-center"
+          >
+            Special Offer
+          </h2>
+          <h1 class="text-black font-black text-4xl sm:text-7xl fontMont">
+            $2,000 OFF
+          </h1>
+          <h4 class="fontMont text-base sm:text-xl">
+            on full roof replacement or full siding projects.
+          </h4>
+          <p
+            class="text-black fontMont text-lg italic font-light leading-normal"
+          >
+            (Restrictions apply. Ask for details.)
+          </p>
+          <button
+            class="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-8 py-3 flex justify-center items-center gap-4 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4"
+          >
+            Claim Your Offer Now
+            <span
+              class="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center"
+            >
+              <img
+                src="./assets/svg/arrow.svg"
+                alt=""
+                class="w-full h-full object-contain"
+              />
+            </span>
+          </button>
+        </div>
+      </div>
+      <!--OUR SERVICES -->
+      <div class="section3">
+        <!-- section3 heading and para -->
+        <div
+          class="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4"
+        >
+          <h1
+            class="fontNF text-[#7FFF00] [text-shadow:0_4px_7.7px_rgba(0,0,0,0.87)] font-black uppercase text-2xl sm:text-4xl whitespace-nowrap w-full sm:w-[50%] sm:items-start sm:flex mt-2 max-sm:text-center"
+          >
+            Our Services
+          </h1>
+          <p
+            class="text-start text-lg fontMont font-normal w-1/2 hidden sm:block"
+          >
+            We specialize in high-quality roofing, siding, <br />
+            and exterior solutions for residential and <br />
+            commercial properties across Long Island.
+          </p>
+          <p class="text-sm fontMont font-normal sm:hidden text-center">
+            We specialize in high-quality roofing, siding, and exterior
+            solutions for residential and commercial properties across Long
+            Island.
+          </p>
+        </div>
+        <div class="sm:flex mt-4 sm:mt-8 w-full justify-between">
+          <div class="gap-8 sm:flex justify-between w-full p-4">
+            <div class="gap-6 flex flex-col pb-2 sm:w-[50%]">
+              <!-- roofing and repair -->
+              <div
+                class="w-full flex gap-3 sm:gap-5 items-center bg-[#CCE5FF] py-4 pl-8 rounded-[30px] shadow-[0_4px_14.6px_7px_rgba(0,0,0,0.25)]"
+              >
+                <span class="p-3 sm:p-5 bg-white rounded-full"
+                  ><img
+                    class="h-4 sm:h-5"
+                    src="./assets/svg/service-1.svg"
+                    alt=""
+                /></span>
+                <h1
+                  class="text-black fontMont text-sm sm:text-2xl font-bold uppercase"
+                >
+                  Residential Roofing & Repair
+                </h1>
+              </div>
+              <!-- cedar -->
+              <div
+                class="flex gap-3 sm:gap-5 items-center bg-[#CCE5FF] py-4 pl-8 rounded-[30px] shadow-[0_4px_14.6px_7px_rgba(0,0,0,0.25)]"
+              >
+                <span class="p-3 sm:p-5 bg-white rounded-full"
+                  ><img
+                    class="h-4 sm:h-5"
+                    src="./assets/svg/service-2.svg"
+                    alt=""
+                /></span>
+                <h1
+                  class="text-black fontMont text-sm sm:text-2xl font-bold uppercase"
+                >
+                  Cedar Roofing & Siding
+                </h1>
+              </div>
+              <!-- siding installation and repair -->
+              <div
+                class="flex gap-3 sm:gap-5 items-center bg-[#CCE5FF] py-4 pl-8 rounded-[30px] shadow-[0_4px_14.6px_7px_rgba(0,0,0,0.25)]"
+              >
+                <span class="px-2 sm:px-4 py-3 sm:py-5 bg-white rounded-full"
+                  ><img
+                    class="h-4 sm:h-5"
+                    src="./assets/svg/service-3.svg"
+                    alt=""
+                /></span>
+                <h1
+                  class="text-black fontMont text-sm sm:text-2xl font-bold uppercase"
+                >
+                  Siding Installation & Repair
+                </h1>
+              </div>
+              <!-- Gutters -->
+              <div
+                class="flex gap-3 sm:gap-5 items-center bg-[#CCE5FF] py-4 pl-8 rounded-[30px] shadow-[0_4px_14.6px_7px_rgba(0,0,0,0.25)]"
+              >
+                <span class="p-3 sm:p-4 bg-white rounded-full"
+                  ><img
+                    class="h-4 sm:h-7"
+                    src="./assets/svg/service-4.svg"
+                    alt=""
+                /></span>
+                <h1
+                  class="text-black fontMont text-sm sm:text-2xl font-bold uppercase"
+                >
+                  Gutters & Copper Work
+                </h1>
+              </div>
+            </div>
+            <div class="gap-6 flex flex-col pb-2 sm:w-[50%]">
+              <!-- chimney -->
+              <div
+                class="flex gap-3 sm:gap-5 items-center bg-[#CCE5FF] py-4 pl-8 rounded-[30px] shadow-[0_4px_14.6px_7px_rgba(0,0,0,0.25)]"
+              >
+                <span class="p-3 sm:px-5 sm:py-5 bg-white rounded-full"
+                  ><img
+                    class="h-4 sm:h-5"
+                    src="./assets/svg/service-5.svg"
+                    alt=""
+                /></span>
+                <h1
+                  class="text-black fontMont text-sm sm:text-2xl font-bold uppercase"
+                >
+                  Chimney Building & Repair
+                </h1>
+              </div>
+              <!-- Flat and chemical -->
+              <div
+                class="flex gap-3 sm:gap-5 items-center bg-[#CCE5FF] py-4 pl-8 rounded-[30px] shadow-[0_4px_14.6px_7px_rgba(0,0,0,0.25)]"
+              >
+                <span class="px-2 sm:px-4 py-3 sm:py-5 bg-white rounded-full"
+                  ><img
+                    class="h-4 sm:h-5"
+                    src="./assets/svg/service-6.svg"
+                    alt=""
+                /></span>
+                <h1
+                  class="text-black fontMont text-sm sm:text-2xl font-bold uppercase"
+                >
+                  Flat & Commercial Roofing
+                </h1>
+              </div>
+              <div
+                class="flex gap-3 sm:gap-5 items-center bg-[#CCE5FF] py-4 pl-8 rounded-[30px] shadow-[0_4px_14.6px_7px_rgba(0,0,0,0.25)]"
+              >
+                <span class="px-2 sm:px-4 py-3 sm:py-5 bg-white rounded-full"
+                  ><img
+                    class="h-4 sm:h-5"
+                    src="./assets/svg/service-7.svg"
+                    alt=""
+                /></span>
+                <h1
+                  class="text-black fontMont text-sm sm:text-2xl font-bold uppercase"
+                >
+                  Rubber Roofing
+                </h1>
+              </div>
+              <!-- Metal Roofing -->
+              <div
+                class="flex gap-3 sm:gap-5 items-center bg-[#CCE5FF] py-4 pl-8 rounded-[30px] shadow-[0_4px_14.6px_7px_rgba(0,0,0,0.25)]"
+              >
+                <span class="p-3 sm:px-2 sm:py-5 bg-white rounded-full"
+                  ><img
+                    class="h-4 sm:h-5"
+                    src="./assets/svg/service-8.svg"
+                    alt=""
+                /></span>
+                <h1
+                  class="text-black fontMont text-sm sm:text-2xl font-bold uppercase"
+                >
+                  Metal Roofing
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--WHY CHOOSE US -->
+       <div class="section4 h-fit w-full relative
+       px-10 items-start sm:flex mt-4 sm:mt-10 xl:pb-10">
+        <!-- section4left -->
+        <div
+          class=" w-full sm:w-[55%] h-full flex gap-2 flex-col 
+          items-center sm:items-start py-8">
+          <h1
+            class="text-[#7FFF00] [text-shadow:0_4px_7.7px_rgba(0,0,0,0.87)] 
+            fontNF text-2xl sm:text-4xl font-black uppercase">
+            Why Choose
+          </h1>
+          <h2
+            class="max-sm:text-center text-black fontMont text-xl sm:text-4xl font-black sm:whitespace-nowrap">
+            Long Island Construction Plus+
+          </h2>
+          <p
+            class="text-black fontMont text-sm sm:text-base w-full 
+              text-center sm:w-[80%] sm:text-start">
+            We take pride in providing professional service, honest pricing, and
+            exceptional workmanship for every project.
+          </p>
+          <div class="mt-4 flex flex-col gap-4 sm:text-start">
+            <div class="gap-3 flex items-center justify-between w-fit">
+              <img src="./assets/svg/tick.svg" alt=""
+              class="w-5" />
+              <h3 class="text-black fontMont text-base sm:text-xl font-bold">
+                Over 10 Years of Experience
+              </h3>
+            </div>
+            <div class="gap-3 flex items-center justify-between w-fit">
+              <img src="./assets/svg/tick.svg" alt=""
+              class="w-5" />
+              <h3 class="text-black fontMont text-base sm:text-xl font-bold">
+                Family-Owned & Trusted Locally
+              </h3>
+            </div>
+            <div class="gap-3 flex items-center justify-between w-fit">
+              <img src="./assets/svg/tick.svg" alt=""
+              class="w-5" />
+              <h3 class="text-black fontMont text-base sm:text-xl font-bold">
+                Fully Licensed & Insured
+              </h3>
+            </div>
+            <div class="gap-3 flex items-center justify-between w-fit">
+              <img src="./assets/svg/tick.svg" alt=""
+              class="w-5" />
+              <h3 class="text-black fontMont text-base sm:text-xl font-bold">
+                Serving All Long Island Areas
+              </h3>
+            </div>
+            <div class="gap-3 flex items-center justify-between w-fit">
+              <img src="./assets/svg/tick.svg" alt=""
+              class="w-5" />
+              <h3 class="text-black fontMont text-base sm:text-xl font-bold">
+                Fast, Reliable & Affordable
+              </h3>
+            </div>
+              <button
+            class="fontMont w-fit text-black font-bold text-sm
+             sm:text-base rounded-xl px-6 py-3 flex justify-center
+              items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200
+               ease-in hover:text-[#7FFF00] mt-4"
+          >
+            Request Your Free Estimate
+            <span
+              class="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center"
+            >
+              <img
+                src="./assets/svg/arrow.svg"
+                alt=""
+                class="w-full h-full object-contain"
+              />
+            </span>
+          </button>
+          </div>
+        </div>
+        <!-- section4right -->
+        <div class="w-full h-[50dvh] sm:h-[70dvh] sm:w-[45%] items-center pt-5 sm:pt-0 relative ">
+          <img
+            class="w-full h-full object-cover object-top"
+            src="./assets/images/whyChoseSectionbg.png"
+            alt="" />
+             <div class="rounded-2xl overflow-hidden  absolute -bottom-12 -left-40 hidden sm:block
+        w-[350px] h-[50dvh] xl:h-[35dvh]">
+ <img
+        class="object-cover object-top w-full h-full xl:scale-125"
+          src="./assets/images/whyusebanner-new.png"
+          alt="" />
+             </div>
+        </div>
+      </div>
+      <!-- OUR RECENT PROJECT SECTION  -->
+      <div
+        class="w-full min-h-fit sm:min-h-screen py-8 pb-20 sm:pb-12 flex flex-col gap-12"
+      >
+        <div
+          class="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4"
+        >
+          <h2
+            class="text-[#7FFF00] fontNF [text-shadow:2px_2px_5px_#000000d6] text-2xl sm:text-4xl max-sm:text-center"
+          >
+            OUR RECENT <br />
+            PROJECTS
+          </h2>
+          <p class="text-lg fontMont font-normal w-1/2 hidden sm:block">
+            Take a look at our latest roofing, siding, and exterior <br />
+            work across Long Island. <br />
+            Each project reflects our dedication to quality and <br />
+            customer satisfaction.
+          </p>
+          <p class="text-sm fontMont font-normal sm:hidden text-center">
+            Take a look at our latest roofing, siding, and exterior work across
+            Long Island. Each project reflects our dedication to quality and
+            customer satisfaction.
+          </p>
+        </div>
+        <div class="crousal w-full h-[50dvh] sm:h-[60dvh] relative">
+          <div class="swiper mySwiper relative">
+            <div class="swiper-wrapper">
+              <div
+                class="swiper-slide !w-full sm:!w-1/4 rounded-2xl overflow-hidden"
+              >
+                <img src="./assets/images/sliderimage-4.png" alt="" />
+              </div>
+              <div
+                class="swiper-slide !w-full sm:!w-1/4 rounded-2xl overflow-hidden"
+              >
+                <img
+                  src="./assets/images/sliderImage-2.png"
+                  alt=""
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="swiper-slide !w-full sm:!w-1/4 rounded-2xl overflow-hidden"
+              >
+                <img
+                  src="./assets/images/sliderImage-3.png"
+                  alt=""
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="swiper-slide !w-full sm:!w-1/4 rounded-2xl overflow-hidden"
+              >
+                <img
+                  src="./assets/images/sliderImage-4.png"
+                  alt=""
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="swiper-slide !w-full sm:!w-1/4 rounded-2xl overflow-hidden"
+              >
+                <img
+                  src="./assets/images/sliderImage-2.png"
+                  alt=""
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination absolute !-bottom-10 !left-0"></div>
+        </div>
+      </div>
+      <!-- WHAT OUR CLIENTS SAY SECTION -->
+      <div class="w-full min-h-scree flex flex-col gap-12 py-6 pb-12">
+        <h2
+          class="text-[#7FFF00] fontNF [text-shadow:2px_2px_5px_#000000d6] text-2xl sm:text-4xl text-center"
+        >
+          WHAT OUR CLIENTS SAY
+        </h2>
+        <div
+          class="w-full flex flex-col sm:flex-row justify-between gap-6 items-center"
+        >
+          <div
+            class="w-full sm:w-1/3 h-fit sm:h-[50dvh] rounded-xl shadow-[0_0_15px_#00000040] flex flex-col max-sm:gap-6 justify-between items-start p-5"
+          >
+            <p class="text-sm sm:text-base fontMont">
+              Long Island Construction Plus did an amazing emergency roof
+              replacement for us in Suffolk County in the Spring of this year.
+              An older house with many leaks. We started to. try to patch and
+              quickly realized we needed a whole new roof. Hermann, the owner
+              was so kind to give us a credit of some of our fix up costs
+              towards the much larger outlay for a new roof...
+            </p>
+            <img src="./assets/images/review-1.png" alt="" class="w-44" />
+          </div>
+          <div
+            class="w-full sm:w-1/3 h-fit sm:h-[50dvh] rounded-xl shadow-[0_0_15px_#00000040] flex flex-col max-sm:gap-6 justify-between items-start p-5"
+          >
+            <p class="text-sm sm:text-base fontMont">
+              I couldn't be happier with Long Island Construction Plus. I had
+              another roofer come to my house and after five minutes told me I
+              needed a new roof. Santos came and spent over an hour on my roof
+              with a hose until he discovered where the leak was coming from. He
+              fixed my leak and repaired all the other spots...
+            </p>
+            <img src="./assets/images/review-2.png" alt="" class="w-44" />
+          </div>
+          <div
+            class="w-full sm:w-1/3 h-fit sm:h-[50dvh] rounded-xl shadow-[0_0_15px_#00000040] flex flex-col max-sm:gap-6 justify-between items-start p-5"
+          >
+            <p class="text-sm sm:text-base fontMont">
+              Excellent value, honest, on time, great job. Santos reviewed our
+              old roof and gave us a fair price explaining everything that
+              needed to be done. Showed up exactly when he said he would within
+              a week of original estimate, professional crew worked hard and
+              steadily and finished the job in less than a day. extremely
+              satisfied and would recommend for any work.
+            </p>
+            <img src="./assets/images/review-3.png" alt="" class="w-44" />
+          </div>
+        </div>
+        <button
+          class="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4"
+        >
+          Read more at Google
+          <span
+            class="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center"
+          >
+            <img
+              src="./assets/svg/arrow.svg"
+              alt=""
+              class="w-full h-full object-contain"
+            />
+          </span>
+        </button>
+      </div>
+      <!-- READY TO STARTED SECTION -->
+       <div class="w-full flex flex-col 
+       justify-start items-center rounded-3xl gap-8 text-white py-10"
+       style="background-image: url('./assets/images/footerBeforeBanner.png');
+       background-position: bottom; background-repeat: no-repeat; "
+       >
+        <h2
+        class="text-2xl sm:text-4xl fontNF text-center "
+        >READY TO GET <span class="text-[#7FFF00]">STARTED?</span></h2>
+         <p class="text-lg fontMont font-light w-1/2 hidden sm:block text-center">
+           Contact our expert roofing team today and ask for your <span class="font-semibold
+            text-[#7FFF00]">FREE ESTIMATE.</span> <br>
+           We'll respond quickly to schedule your on-site inspection.
+          </p>
+          <p class="text-sm fontMont font-normal sm:hidden text-center">
+            Take a look at our latest roofing, siding, and exterior work across
+            Long Island. Each project reflects our dedication to quality and
+            customer satisfaction.
+          </p>
+          <div class="w-full flex gap-6 flex-col sm:flex-row justify-center items-center">
+            <button
+          class="fontMont text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4"
+        >
+        Request Your Free Estimate
+          <span
+            class="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center"
+          >
+            <img
+              src="./assets/svg/arrow.svg"
+              alt=""
+              class="w-full h-full object-contain"
+            />
+          </span>
+        </button>
+
+          <button
+          class="fontMont text-white font-bold text-sm 
+          sm:text-base rounded-xl px-6 py-3 flex justify-center
+           items-center gap-2 bg-transparent hover:bg-[#ffffff] duration-200 ease-in 
+           hover:text-black mt-4 border border-[#7FFF00] hover:border-transparent"
+        >
+        Call Now: (631) 484-0098
+          <span
+            class="w-7 h-7 p-2 bg-white flex justify-center rounded-full items-center"
+          >
+            <img
+              src="./assets/svg/arrow.svg"
+              alt=""
+              class="w-full h-full object-contain"
+            />
+          </span>
+        </button>
+          </div>
+       </div>
+      <!-- FOOTER -->
+      <div class="flex flex-col mt-8">
+        <div
+          class="footer bg-[#007FFF] flex sm:flex-row flex-col
+           w-full justify-between rounded-tr-3xl rounded-tl-3xl pt-8 px-4 sm:px-10"
+        >
+          <div
+            class="flex flex-col gap-1 w-full sm:w-[30%]
+             text-white fontMont text-sm py-6 "
+          >
+            <img class="w-[80%] pb-8" src="./assets/images/logo.png" alt="" />
+            <div class="flex gap-4">
+              <img src="./assets/svg/phone.svg" alt="" />
+              <h1>(631) 484-0098</h1>
+            </div>
+            <div class="flex gap-4">
+              <img src="./assets/svg/map.svg" alt="" />
+              <h1>Serving Suffolk County & Nassau County</h1>
+            </div>
+            <div class="flex gap-4">
+              <img src="./assets/svg/email.svg" alt="" />
+              <h1>liconstructionplus@gmail.com</h1>
+            </div>
+            <div class="flex gap-4">
+              <img src="./assets/svg/time.svg" alt="" />
+              <h1 class="font-semibold">
+                Monday – Saturday | 8:00 AM – 6:00 PM
+              </h1>
+            </div>
+          </div>
+          <div
+            class="w-full sm:w-[20%] text-white fontMont
+             text-sm flex flex-col  gap-3 capitalize sm:pl-10 py-6"
+          >
+            <h1 class="uppercase font-black text-2xl sm:text-base">
+              Quick links
+            </h1>
+            <p class="text-sm sm:text-base">Home</p>
+            <p class="text-sm sm:text-base">About us</p>
+            <p class="text-sm sm:text-base">Our services</p>
+            <p class="text-sm sm:text-base">Why Choose us</p>
+            <p class="text-sm sm:text-base">get a Quote</p>
+          </div>
+          <div
+            class="w-full sm:w-1/2 flex flex-col max-sm:px-2
+             items-start justify-start py-6 max-sm:border max-sm:border-white max-sm:rounded-2xl"
+          >
+            <h1
+              class="fontNF text-sm sm:text-lg 
+               uppercase text-white font-black leading-none max-sm:text-center"
+            >
+              Request Your Free Estimate Today!
+            </h1>
+            <p
+              class="text-[3vw] sm:text-[0.8vw] text-white fontMont max-sm:mt-4 max-sm:text-center"
+            >
+              Get a no-obligation quote from our expert roofing and siding team.
+              Fast, reliable, and trusted by homeowners across Long Island.
+            </p>
+            <form
+              action=""
+              class="overflow-hidden w-full items-center 
+              flex flex-col justify-between items-center pt-4"
+            >
+              <div
+                class="w-full flex  flex-col sm:flex-row sm:justify-between
+                max-sm:gap-6"
+              >
+                <input
+                  class="                 
+                  w-full sm:w-[30%] outline-none border bg-transparent 
+              border-transparent text-white border-b-[#7FFF00] 
+              py-2 placeholder:fontMont placeholder:text-white 
+              placeholder:font-light placeholder:italic
+                  "
+                  type="text"
+                  placeholder="Full Name"
+                />
+               
+                <input
+                  class=" w-full sm:w-[30%] outline-none border bg-transparent 
+              border-transparent text-white border-b-[#7FFF00] 
+              py-2 placeholder:fontMont placeholder:text-white 
+              placeholder:font-light placeholder:italic"
+                  type="text"
+                  placeholder="Phone Number"
+                />
+                <input
+                  class=" w-full sm:w-[30%] outline-none border bg-transparent 
+              border-transparent text-white border-b-[#7FFF00] 
+              py-2 placeholder:fontMont placeholder:text-white 
+              placeholder:font-light placeholder:italic"
+                  type="text"
+                  placeholder="Email"
+                />
+              </div>
+               <textarea
+              rows="2"
+              placeholder="Message"
+              class="w-full outline-none max-sm:mt-4 border bg-transparent border-transparent text-white border-b-[#7FFF00] py-2 placeholder:fontMont placeholder:text-white placeholder:font-light placeholder:italic"
+            ></textarea>
+              <button
+                class="bg-[#7FFF00] px-4 py-1 mt-5 rounded-3xl fontMont font-bold uppercase text-sm hover:text-[#7FFF00] hover:bg-black transition-all duration-300"
+              >
+                Get a Quote
+              </button>
+            </form>
+          </div>
+        </div>
+        <div
+          class="bg-[#007FFF] pb-5 h-fit w-full 
+          text-sm text-white fontMont flex flex-col sm:flex-row justify-evenly pt-5"
+        >
+          <p class="text-xs max-sm:text-center">Privacy Policy | Your Privacy Choices</p>
+          <p class="text-xs max-sm:text-center">
+            © 2025 Long Island Construction Plus+. All Rights Reserved.
+            <span class="text-[#7FFF00]">Web Design</span> By Latin Branding
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1, // default for mobile
+        spaceBetween: 20,
+
+        breakpoints: {
+          640: {
+            // from 640px and up
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+        },
+
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+
+
+
+
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+const menuBtnClose = document.getElementById("menuBtnClose");
+
+menuBtn.addEventListener("click", () => {
+  mobileMenu.classList.remove("translate-x-full");
+  mobileMenu.classList.add("translate-x-0");
+});
+
+menuBtnClose.addEventListener("click", () => {
+  mobileMenu.classList.remove("translate-x-0");
+  mobileMenu.classList.add("translate-x-full");
+});
+
+    </script>
+  </body>
+</html>
