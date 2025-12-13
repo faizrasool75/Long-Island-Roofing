@@ -44,7 +44,7 @@ html {
 }
 
 .hero{
-    background-image: url('./assets/images/herobg.png');
+    background-image: url('/assets/images/herobg.png');
     background-size: cover;
     background-position: top;
 }
@@ -77,7 +77,7 @@ input[type="number"] {
 
 @media (max-width: 640px) {
   .hero {
-    background-image: url('./assets/images/mobileDevice.png');
+    background-image: url('/assets/images/mobileDevice.png');
   }
 }
 
