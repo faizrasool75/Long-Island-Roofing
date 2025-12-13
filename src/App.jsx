@@ -401,7 +401,7 @@ function App() {
           />
         </div>
         <div className="flex flex-col gap-5 w-full pt-5 sm:pt-0 sm:w-[50%] justify-center items-center">
-          <h2 className="text-[#7FFF00] text-3xl sm:text-4xl font-black uppercase fontNF max-sm:text-center">
+          <h2 className="text-[#7FFF00] text-3xl sm:text-4xl font-black uppercase fontNF max-sm:text-center hero-heading-shadow">
             Special Offer
           </h2>
           <h1 className="text-black font-black text-4xl sm:text-7xl fontMont">$2,000 OFF</h1>
@@ -418,7 +418,7 @@ function App() {
 
       <div className="section3 fade-section" id="services">
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
-          <h1 className="fontNF text-[#7FFF00] text-2xl sm:text-4xl uppercase w-full sm:w-[50%]">
+          <h1 className="fontNF text-[#7FFF00] text-2xl sm:text-4xl uppercase w-full sm:w-[50%] hero-heading-shadow">
             Our Services
           </h1>
           <p className="text-start text-lg fontMont font-normal w-1/2 hidden sm:block">
@@ -477,7 +477,7 @@ function App() {
         id="why-us"
       >
         <div className="w-full sm:w-[55%] h-full flex gap-2 flex-col items-center sm:items-start py-8">
-          <h1 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl uppercase">Why Choose</h1>
+          <h1 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl uppercase hero-heading-shadow">Why Choose</h1>
           <h2 className="max-sm:text-center text-black fontMont text-xl sm:text-4xl font-black sm:whitespace-nowrap">
             Long Island Construction Plus+
           </h2>
@@ -526,7 +526,7 @@ function App() {
         id="recent-projects"
       >
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
-          <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center">OUR RECENT PROJECTS</h2>
+        <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow">OUR RECENT PROJECTS</h2>
           <p className="text-lg fontMont font-normal w-1/2 hidden sm:block">
             Take a look at our latest roofing, siding, and exterior work across Long Island. Each project reflects our dedication to quality and customer satisfaction.
           </p>
@@ -573,7 +573,7 @@ function App() {
       )}
 
       <div className="w-full min-h-scree flex flex-col gap-12 py-6 pb-12 fade-section">
-        <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center">WHAT OUR CLIENTS SAY</h2>
+        <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow">WHAT OUR CLIENTS SAY</h2>
         <div className="w-full flex flex-col sm:flex-row justify-between gap-6 items-center">
           {[
             {

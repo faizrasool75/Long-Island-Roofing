@@ -85,7 +85,7 @@ input[type="number"] {
     padding-right: 0;
   }
   .hero {
-    background-image: linear-gradient(120deg,rgba(0,0,0,0.62),rgba(0,0,0,0.3)), url('https://images.pexels.com/photos/21327144/pexels-photo-21327144.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600');
+    background-image: linear-gradient(120deg,rgba(0,0,0,0.62),rgba(0,0,0,0.3)), url('https://images.pexels.com/photos/34625605/pexels-photo-34625605.jpeg?_gl=1*1n6513v*_ga*MTAxMzMxNDc4MS4xNzY1NjE2ODY5*_ga_8JE65Q40S6*czE3NjU2MTg5NzMkbzIkZzEkdDE3NjU2MjAwOTgkajI5JGwwJGgw');
     background-position: center;
     background-size: 120% 120%;
     width: 100vw;
@@ -249,6 +249,10 @@ button.btn-prep {
 button.btn-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+.hero-heading-shadow {
+    text-shadow: 0 4px 7.7px rgba(0, 0, 0, 0.87);
 }
 
 @keyframes popIn {
