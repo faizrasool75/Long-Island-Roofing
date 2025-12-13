@@ -144,18 +144,46 @@ function App() {
   useEffect(() => {
     const buttons = document.querySelectorAll("button");
     buttons.forEach((button) => button.classList.add("btn-prep"));
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      buttons.forEach((button) => button.classList.add("btn-visible"));
+      return;
+    }
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("btn-visible");
-            observer.unobserve(entry.target);
+            obs.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.1 }
     );
     buttons.forEach((button) => observer.observe(button));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const revealTargets = document.querySelectorAll(".scroll-reveal, .scroll-reveal-left");
+    if (!revealTargets.length) return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      revealTargets.forEach((target) => target.classList.add("reveal-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach(async (entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+    revealTargets.forEach((target) => observer.observe(target));
     return () => observer.disconnect();
   }, []);
 
@@ -392,7 +420,7 @@ function App() {
         ))}
       </div>
 
-      <div className="section-2 fade-section bg-[#CCE5FF] h-fit sm:h-[80dvh] w-full rounded-3xl flex flex-col sm:flex-row items-center pb-5 sm:pb-0 mb-5 sm:mb-10">
+      <div className="section-2 fade-section scroll-reveal bg-[#CCE5FF] h-fit sm:h-[80dvh] w-full rounded-3xl flex flex-col sm:flex-row items-center pb-5 sm:pb-0 mb-5 sm:mb-10">
         <div className="w-full sm:w-[50%] h-full">
           <img
             className="w-full h-full object-cover rounded-3xl"
@@ -416,7 +444,7 @@ function App() {
         </div>
       </div>
 
-      <div className="section3 fade-section" id="services">
+      <div className="section3 fade-section scroll-reveal" id="services">
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
           <h1 className="fontNF text-[#7FFF00] text-2xl sm:text-4xl uppercase w-full sm:w-[50%] hero-heading-shadow">
             Our Services
@@ -473,7 +501,7 @@ function App() {
       </div>
 
       <div
-        className="section4 fade-section h-fit w-full relative px-10 items-start sm:flex mt-4 sm:mt-10 xl:pb-10"
+        className="section4 fade-section scroll-reveal h-fit w-full relative px-10 items-start sm:flex mt-4 sm:mt-10 xl:pb-10"
         id="why-us"
       >
         <div className="w-full sm:w-[55%] h-full flex gap-2 flex-col items-center sm:items-start py-8">
@@ -522,7 +550,7 @@ function App() {
       </div>
 
       <div
-        className="w-full min-h-fit sm:min-h-screen py-8 pb-20 sm:pb-12 flex flex-col gap-12 fade-section"
+        className="w-full min-h-fit sm:min-h-screen py-8 pb-20 sm:pb-12 flex flex-col gap-12 fade-section scroll-reveal-left"
         id="recent-projects"
       >
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
