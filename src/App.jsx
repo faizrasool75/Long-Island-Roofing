@@ -59,6 +59,7 @@ function App() {
   const [openService, setOpenService] = useState(null);
   const quickQuoteRef = useRef(null);
   const quoteTimerRef = useRef(null);
+  const reviewsTrackRef = useRef(null);
   const [showModalQuote, setShowModalQuote] = useState(false);
   const [quoteActive, setQuoteActive] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
@@ -398,6 +399,70 @@ function App() {
     );
   };
 
+  const testimonials = [
+    {
+      name: "Ange Dallo",
+      initials: "AD",
+      date: "5 months ago",
+      meta: "5 reviews · 5 photos",
+      badge: "Reasonable price",
+      rating: 5,
+      text: "Herman and his crew were terrific! I had received three other estimates in addition to LI Construction, and I am pleased with my selection—prompt, courteous attention throughout the entire project and even afterwards. Herman has returned a few times to make adjustments for things we could only know after the project was completed. They were on-site for 2 weeks, on time and budget. I am thrilled and have recommended them to others who have also had work done. An entirely new roof down to the studs, new siding and seamless gutters.",
+    },
+    {
+      name: "Matthew Crennan",
+      initials: "MC",
+      date: "5 months ago",
+      meta: "3 reviews · 2 photos",
+      rating: 5,
+      text: "I have known Herman and his team for over 10 years. My former house’s roof blew off during hurricane Sandy. Desperate to have the roof covered before more rain came, Herman came the next morning and helped tarp the roof. His crew then came back a few days later and replaced my roof. After this I have always used Herman for all of my roofing and siding needs. In 2021, they replaced all of the siding on my second house. I included pictures to show the dramatic difference and great work his team did. Most recently his team reroofed and sided my sheds. Herman is a consummate professional, always on time and courteous. His team does a great job and always clean up the job site so it looks like they were not there. I would recommend Long Island Construction Plus to anyone.",
+    },
+    {
+      name: "Grace McGuire",
+      initials: "GM",
+      date: "8 months ago",
+      meta: "6 reviews · 4 photos",
+      rating: 5,
+      text: "Herman and his crew did such a wonderful job making my house beautiful! They worked tirelessly for 3 full days siding the front of my house! He even installed a much needed railing on the side of my front steps. I would recommend this company to anyone who wants to have their home improvement done by a reliable company!",
+    },
+    {
+      name: "Peter Kassimis",
+      initials: "PK",
+      date: "6 months ago",
+      meta: "8 reviews · 4 photos",
+      badge: "Reasonable price",
+      rating: 5,
+      text: "I had a great experience with George. He gave me estimates, suggestions and explained how long everything would take. He did a new roof, added a portico, replaced 3 skylights, installed a chimney chase, outdoor high hats, and a chandelier, replaced the gutters, added molding around my garage doors, installed a new driveway, and did a stoop and pavers. Some rain threw some work off schedule but they worked long days and weekends to complete everything on time.",
+    },
+    {
+      name: "Brigette Renaud",
+      initials: "BR",
+      date: "2 months ago",
+      meta: "Local Guide · 16 reviews",
+      badge: "Great price",
+      rating: 5,
+      text: "Long Island Construction Plus did an amazing emergency roof replacement for us in Suffolk County in the Spring of this year. An older house with many leaks. We started to try to patch and quickly realized we needed a whole new roof. Hermann, the owner was so kind to give us a credit of some of our fix up costs towards the much larger outlay for a new roof. The roof is perfect functioning and looks great with the enhanced tiles that will protect from both wind and water. We were surprised that the whole job was done in a couple days and they helped us deal with dust clean up inside after the roof replacement. As a homeowner in Suffolk County and having dealt with many contractors over the years, we found this company stellar and plan to use them for many more jobs.",
+    },
+    {
+      name: "R R",
+      initials: "RR",
+      date: "1 month ago",
+      meta: "7 reviews",
+      rating: 5,
+      text: "Santos and his crew demo'd 2 large sheds and installed a complete new roof and gutter system on our house. Work was scheduled very quickly and completed to our satisfaction. Santos and team were courteous and professional and very willing to address all of our preferences at a fair price. Will use them again for other projects.",
+    },
+  ];
+
+  const scrollTestimonials = (direction = 1) => {
+    if (!reviewsTrackRef.current) return;
+    const firstCard = reviewsTrackRef.current.querySelector(".testimonial-card");
+    const cardWidth = firstCard ? firstCard.getBoundingClientRect().width + 20 : 320;
+    reviewsTrackRef.current.scrollBy({
+      left: direction * cardWidth,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="main px-0 sm:px-2 pt-0 pb-0">
       {/* Mobile Menu */}
@@ -480,10 +545,10 @@ function App() {
         }`}
       >
         <a href="#home" onClick={(e) => handleSmoothScroll(e, "#home")}>
-          <img 
-            src="/assets/images/logo.png" 
-            alt="Long Island Construction Plus+" 
-            className="w-28 sm:w-40 lg:w-48 transition-all duration-200 hover:scale-105" 
+          <img
+            src="/assets/images/logo.png"
+            alt="Long Island Construction Plus+"
+            className="w-28 sm:w-40 lg:w-48 transition-all duration-200 hover:scale-105"
           />
         </a>
         
@@ -535,12 +600,12 @@ function App() {
         </div>
 
         {/* Content Container */}
-        <div className="relative z-10 w-full px-4 sm:px-6 py-20 sm:py-24 lg:py-32">
+        <div className="relative z-10 w-full px-4 sm:px-6 py-16 sm:py-20 lg:py-26">
           <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-center justify-between">
+            <div className="flex flex-col md:flex-row gap-5 lg:gap-8 items-center justify-between">
               
               {/* Left Side - Hero Content */}
-              <div className="w-full md:w-[55%] lg:w-[50%] text-center md:text-left space-y-4 sm:space-y-6">
+              <div className="w-full md:w-[55%] lg:w-[50%] text-center md:text-left space-y-3 sm:space-y-5">
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 reveal-from-left">
                   <div className="w-2 h-2 bg-[#7FFF00] rounded-full animate-pulse" />
@@ -550,16 +615,17 @@ function App() {
                 </div>
 
                 {/* Main Headline - Smaller on mobile */}
-                <h1 className="fontNF text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] reveal-from-left">
-                  RESIDENTIAL <span className="font-extrabold">&</span>
-                  <br />
-                  COMMERCIAL
-                  <br />
-                  <span className="text-[#7FFF00] drop-shadow-[0_0_30px_rgba(127,255,0,0.5)]">
+                <h1 className="fontNF text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.05] reveal-from-left space-y-1 sm:space-y-2">
+                  <span className="block">
+                    <span className="inline-block">RESIDENTIAL&nbsp;&amp;</span>
+                    <span className="block sm:inline"> COMMERCIAL</span>
+                  </span>
+                  <span className="block text-[#7FFF00] drop-shadow-[0_0_30px_rgba(127,255,0,0.5)]">
                     ROOFING EXPERTS
                   </span>
-                  <br />
-                  YOU CAN <span className="text-[#7FFF00]">TRUST</span>
+                  <span className="block">
+                    YOU CAN <span className="text-[#7FFF00]">TRUST</span>
+                  </span>
                 </h1>
 
                 {/* Subheading */}
@@ -568,7 +634,7 @@ function App() {
                 </p>
 
                 {/* USPs */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4 reveal-from-left">
+                <div className="flex flex-wrap justify-center md:justify-start gap-2.5 sm:gap-3 reveal-from-left">
                   {[
                     { icon: "✓", text: "Licensed & Insured" },
                     { icon: "✓", text: "Family-Owned" },
@@ -586,7 +652,7 @@ function App() {
                 </div>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start reveal-from-left">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 justify-center md:justify-start reveal-from-left">
                   <button
                     onClick={handleQuoteScroll}
                     className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] text-black font-bold rounded-xl sm:rounded-2xl shadow-[0_10px_40px_rgba(127,255,0,0.4)] hover:shadow-[0_15px_50px_rgba(127,255,0,0.6)] transition-all duration-300 hover:scale-105 fontMont text-sm sm:text-base relative overflow-hidden"
@@ -611,7 +677,7 @@ function App() {
               </div>
 
               {/* Right Side - Quote Form */}
-              <div className="w-full md:w-[42%] lg:w-[45%] reveal-from-right">
+              <div className="w-full md:w-[42%] lg:w-[45%] md:ml-6 lg:ml-10 reveal-from-right">
                 {renderQuoteForm("hero")}
               </div>
 
@@ -628,16 +694,16 @@ function App() {
         </div>
       </div>
 
-      <div className="w-full py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-b from-white via-gray-50 to-white border-y border-gray-100 fade-section scroll-reveal">
+      <div className="w-full py-8 sm:py-12 px-4 sm:px-6 bg-gradient-to-b from-white via-gray-50 to-white border-y border-gray-100 fade-section scroll-reveal">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12 reveal-from-bottom">
+          <div className="text-center mb-6 sm:mb-8 reveal-from-bottom">
             <p className="fontMont text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">
               Trusted by Homeowners Across Long Island
             </p>
             <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#007FFF] to-transparent mx-auto" />
           </div>
 
-          <div className="trust-badges-grid grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+          <div className="trust-badges-grid grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {[
               {
                 icon: (
@@ -682,7 +748,7 @@ function App() {
             ].map((badge, idx) => (
               <div
                 key={badge.title}
-                className="trust-badge-card bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 hover:border-[#007FFF] transition-all duration-300 shadow-sm hover:shadow-lg group reveal-from-bottom"
+                className="trust-badge-card bg-white rounded-2xl p-5 sm:p-6 border border-gray-200 hover:border-[#007FFF] transition-all duration-300 shadow-sm hover:shadow-lg group reveal-from-bottom"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
                 <div className="flex flex-col items-center text-center gap-3 sm:gap-4">
@@ -702,8 +768,8 @@ function App() {
             ))}
           </div>
 
-          <div className="mt-10 sm:mt-12 text-center reveal-from-bottom">
-            <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-600 fontMont">
+          <div className="mt-6 sm:mt-8 text-center reveal-from-bottom">
+            <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600 fontMont">
               <div className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-[#7FFF00]" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -729,15 +795,15 @@ function App() {
         </div>
       </div>
 
-      <div className="special-offer-section fade-section scroll-reveal w-full mb-10 sm:mb-16 px-3 sm:px-6">
+      <div className="special-offer-section fade-section scroll-reveal w-full mb-2 sm:mb-6 px-3 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="special-offer-card bg-gradient-to-br from-[#007FFF] via-[#0099FF] to-[#00B8FF] rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,127,255,0.3)] border-2 border-white/20">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[500px]">
               {/* Content Side - Left */}
-              <div className="flex flex-col justify-center items-start p-6 sm:p-8 md:p-12 lg:p-16 text-white order-2 lg:order-1">
-                <div className="space-y-4 sm:space-y-6 w-full reveal-from-left">
+              <div className="flex flex-col justify-center items-start p-6 sm:p-8 md:p-10 lg:p-12 text-white order-2 lg:order-1">
+                <div className="space-y-3 sm:space-y-4 w-full reveal-from-left">
                   <div className="inline-block">
-                    <span className="bg-[#7FFF00] text-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold uppercase tracking-wide fontMont">
+                    <span className="bg-[#7FFF00] text-black px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs font-bold uppercase tracking-wide fontMont">
                       Limited Time Offer
                     </span>
                   </div>
@@ -747,26 +813,26 @@ function App() {
                     <span className="block text-[#7FFF00] mt-1 sm:mt-2">Next Project!</span>
                   </h2>
                   
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20">
-                    <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-white/20">
+                    <div className="flex items-baseline gap-2 sm:gap-2.5 flex-wrap">
                       <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black fontMont text-[#7FFF00] drop-shadow-[0_4px_12px_rgba(127,255,0,0.4)] leading-none">
                         $2,000
                       </span>
                       <span className="text-2xl sm:text-3xl md:text-4xl font-bold fontMont">OFF</span>
                     </div>
-                    <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg fontMont font-medium text-white/90 leading-snug">
+                    <p className="mt-2 sm:mt-3 text-sm sm:text-base md:text-lg fontMont font-medium text-white/90 leading-snug">
                       on full roof replacement or full siding projects
                     </p>
                   </div>
 
-                  <ul className="space-y-2.5 sm:space-y-3">
+                  <ul className="space-y-2 sm:space-y-2.5">
                     {[
                       "Premium materials included",
                       "Professional installation",
                       "Warranty coverage",
                       "Free on-site consultation"
                     ].map((item, idx) => (
-                      <li key={idx} className="flex items-center gap-2.5 sm:gap-3">
+                      <li key={idx} className="flex items-center gap-2 sm:gap-2.5">
                         <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#7FFF00] flex items-center justify-center">
                           <svg className="w-3 h-3 sm:w-4 sm:h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -779,7 +845,7 @@ function App() {
 
                   <button 
                     onClick={handleQuoteScroll}
-                    className="group fontMont text-black font-bold text-sm sm:text-base md:text-lg rounded-xl sm:rounded-2xl px-6 sm:px-8 py-3.5 sm:py-4 flex items-center justify-center gap-2 sm:gap-3 bg-[#7FFF00] hover:bg-white transition-all duration-300 shadow-[0_10px_30px_rgba(127,255,0,0.4)] hover:shadow-[0_15px_40px_rgba(255,255,255,0.5)] active:scale-95 sm:hover:scale-105 w-full sm:w-auto touch-manipulation"
+                    className="group fontMont text-black font-bold text-sm sm:text-base md:text-lg rounded-xl sm:rounded-2xl px-6 sm:px-7 py-3 sm:py-3.5 flex items-center justify-center gap-2 sm:gap-3 bg-[#7FFF00] hover:bg-white transition-all duration-300 shadow-[0_10px_30px_rgba(127,255,0,0.4)] hover:shadow-[0_15px_40px_rgba(255,255,255,0.5)] active:scale-95 sm:hover:scale-105 w-full sm:w-auto touch-manipulation"
                   >
                     <span>Claim Your Offer Now</span>
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -787,32 +853,32 @@ function App() {
                     </svg>
                   </button>
 
-                  <p className="text-xs sm:text-sm text-white/70 italic fontMont leading-relaxed">
+                  <p className="text-xs sm:text-sm text-white/70 italic fontMont leading-relaxed mt-1">
                     * Restrictions apply. Contact us for complete details and eligibility requirements.
                   </p>
                 </div>
               </div>
 
               {/* Image Side - Right */}
-              <div className="relative h-[280px] sm:h-[350px] md:h-[400px] lg:h-auto order-1 lg:order-2">
+              <div className="relative h-[260px] sm:h-[320px] md:h-[360px] lg:h-auto order-1 lg:order-2">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#007FFF]/20 to-transparent z-10" />
                 <img
-                  src="https://lh3.googleusercontent.com/geougc-cs/AMBA38vTLL8A_TsQPSjno-ej-op_WqPxJSwY6u2cHABn4taVnImgQcletcmmEt5iJpawWC28C-mr3ZL5mtjJ7-xXDxooDeLz5nAbxnMicRmwczcJZTcUFqf2MFhWw78a7nfJ8LuNT1DK=s3840-w3840-h1890-rw"
-                  alt="Roofing Project"
+                  src="/assets/images/casa.webp"
+                  alt="Featured Roofing Project"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-t from-[#007FFF] to-transparent z-10 lg:hidden" />
+                <div className="absolute bottom-0 left-0 right-0 h-20 sm:h-28 bg-gradient-to-t from-[#007FFF] to-transparent z-10 lg:hidden" />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="section3 fade-section scroll-reveal py-12 sm:py-16 px-4 sm:px-6" id="services">
+      <div className="section3 fade-section scroll-reveal py-6 sm:py-10 px-4 sm:px-6" id="services">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-10 sm:mb-14">
+          <div className="text-center mb-8 sm:mb-10">
             <h1 className="fontNF text-[#7FFF00] text-3xl sm:text-4xl lg:text-5xl uppercase hero-heading-shadow fade-heading reveal-from-bottom mb-4">
               Our Services
             </h1>
@@ -823,7 +889,7 @@ function App() {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
             {servicesData.map((service, index) => {
               const isOpen = openService === index;
               return (
@@ -923,7 +989,7 @@ function App() {
           </div>
 
           {/* CTA Below Services */}
-          <div className="mt-10 sm:mt-14 text-center reveal-from-bottom">
+          <div className="mt-8 sm:mt-12 text-center reveal-from-bottom">
             <p className="fontMont text-gray-600 mb-6 text-sm sm:text-base">
               Don't see what you're looking for? We handle a wide range of roofing and exterior projects.
             </p>
@@ -941,12 +1007,12 @@ function App() {
       </div>
 
       <div
-        className="why-choose-section fade-section scroll-reveal py-12 sm:py-16 lg:py-20 px-4 sm:px-6 overflow-hidden"
+        className="why-choose-section fade-section scroll-reveal pt-4 sm:pt-6 lg:pt-8 pb-6 sm:pb-10 px-4 sm:px-6 overflow-hidden"
         id="why-us"
       >
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-10 sm:mb-14">
+          <div className="text-center mb-8 sm:mb-12">
             <h1 className="fontNF text-[#7FFF00] text-3xl sm:text-4xl lg:text-5xl uppercase hero-heading-shadow reveal-from-bottom mb-3">
               Why Choose
             </h1>
@@ -960,7 +1026,7 @@ function App() {
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 mb-10">
             {/* Left Side - Benefits */}
             <div className="space-y-6 reveal-from-left">
               {[
@@ -1016,7 +1082,7 @@ function App() {
                   className="why-choose-card bg-white rounded-2xl p-5 sm:p-6 border-2 border-gray-100 hover:border-[#007FFF]/30 transition-all duration-300 shadow-sm hover:shadow-lg group reveal-from-left"
                   style={{ animationDelay: `${idx * 0.1}s` }}
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-3.5">
                     <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#007FFF] to-[#0099FF] flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
                       {benefit.icon}
                     </div>
@@ -1080,7 +1146,7 @@ function App() {
           </div>
 
           {/* Bottom Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-12 reveal-from-bottom">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 mt-10 reveal-from-bottom">
             {[
               { number: "453+", label: "5-Star Reviews" },
               { number: "13+", label: "Years Experience" },
@@ -1105,11 +1171,11 @@ function App() {
       </div>
 
       <div
-        className="recent-projects-section w-full py-12 sm:py-16 lg:py-20 fade-section scroll-reveal bg-gradient-to-b from-gray-50 via-white to-gray-50"
+        className="recent-projects-section w-full py-6 sm:py-10 lg:py-12 fade-section scroll-reveal bg-gradient-to-b from-gray-50 via-white to-gray-50"
         id="recent-projects"
       >
         {/* Section Header */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10">
           <div className="text-center reveal-from-bottom">
             <h2 className="text-[#7FFF00] fontNF text-3xl sm:text-4xl lg:text-5xl uppercase hero-heading-shadow mb-4">
               OUR RECENT PROJECTS
@@ -1122,7 +1188,7 @@ function App() {
         </div>
 
         {/* Full-Width Projects Slider */}
-        <div className="w-full reveal-from-bottom mb-10 sm:mb-14">
+        <div className="w-full reveal-from-bottom mb-8 sm:mb-10">
           <div className="swiper mySwiper">
             <div className="swiper-wrapper">
               {[
@@ -1161,7 +1227,7 @@ function App() {
               See more of our completed projects and client testimonials
             </p>
             <button
-              onClick={() => window.open('https://www.google.com/maps/place/Long+Island+Construction+Plus', '_blank')}
+              onClick={() => window.open('https://share.google/9loNOTEDxxyrMeKNl', '_blank')}
               className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] text-black font-bold rounded-2xl shadow-[0_10px_30px_rgba(127,255,0,0.3)] hover:shadow-[0_15px_40px_rgba(127,255,0,0.45)] transition-all duration-300 hover:scale-105 fontMont text-sm sm:text-base"
             >
               <span>View All Projects on Google</span>
@@ -1181,7 +1247,7 @@ function App() {
         </div>
       )}
 
-      <div className="w-full min-h-fit py-12 sm:py-16 pb-16 sm:pb-20 flex flex-col gap-8 sm:gap-12 fade-section">
+      <div className="w-full min-h-fit py-4 sm:py-8 pb-6 sm:pb-10 flex flex-col gap-4 sm:gap-6 fade-section">
         <div className="flex flex-col items-center gap-3">
           <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow reveal-from-bottom">WHAT OUR CLIENTS SAY</h2>
           <div className="flex items-center gap-2 reveal-from-bottom">
@@ -1196,90 +1262,142 @@ function App() {
             <span className="fontMont text-sm sm:text-base text-gray-600">· 453 reviews on Google</span>
           </div>
         </div>
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6">
-          {[
-            {
-              name: "Ange D.",
-              date: "5 months ago",
-              rating: 5,
-              image: "https://randomuser.me/api/portraits/women/44.jpg",
-              text: "Herman and his crew were terrific! I had received three other estimates in addition to LI Construction, and I am pleased with my selection—prompt, courteous attention throughout the entire project and even afterwards. Herman has returned multiple times to ensure everything is perfect. Highly professional team!",
-            },
-            {
-              name: "Maria S.",
-              date: "3 months ago",
-              rating: 5,
-              image: "https://randomuser.me/api/portraits/women/65.jpg",
-              text: "Long Island Construction Plus did an amazing emergency roof replacement for us in Suffolk County. An older house with many leaks. Hermann, the owner was so kind to give us a credit of some of our fix up costs towards the much larger outlay for a new roof. Very honest and fair!",
-            },
-            {
-              name: "Robert K.",
-              date: "4 months ago",
-              rating: 5,
-              image: "https://randomuser.me/api/portraits/men/32.jpg",
-              text: "I couldn't be happier with Long Island Construction Plus. Santos came and spent over an hour on my roof with a hose until he discovered where the leak was coming from. He fixed my leak and repaired all the other spots. Honest work at a fair price!",
-            },
-            {
-              name: "Jennifer L.",
-              date: "2 months ago",
-              rating: 5,
-              image: "https://randomuser.me/api/portraits/women/28.jpg",
-              text: "Excellent value, honest, on time, great job. Santos reviewed our old roof and gave us a fair price explaining everything that needed to be done. Professional crew worked hard and steadily and finished the job in less than a day. Extremely satisfied!",
-            },
-            {
-              name: "Michael P.",
-              date: "6 months ago",
-              rating: 5,
-              image: "https://randomuser.me/api/portraits/men/54.jpg",
-              text: "Outstanding service from start to finish. The team was professional, respectful of our property, and the quality of work exceeded our expectations. They completed our siding project on time and within budget. Highly recommend!",
-            },
-            {
-              name: "Sarah T.",
-              date: "1 month ago",
-              rating: 5,
-              image: "https://randomuser.me/api/portraits/women/72.jpg",
-              text: "Herman and his team did a fantastic job on our roof repair. They were prompt, professional, and the workmanship is top-notch. The crew cleaned up everything perfectly. We'll definitely use them again for future projects!",
-            },
-          ].map((review, idx) => (
-            <div
-              key={review.name}
-              className="testimonial-card bg-white rounded-2xl shadow-md hover:shadow-xl border border-gray-100 flex flex-col gap-4 p-6 transition-all duration-300 reveal-from-bottom"
-              style={{ animationDelay: `${idx * 0.1}s` }}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="reviewer-avatar w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden flex-shrink-0 shadow-md ring-2 ring-white">
-                    <img 
-                      src={review.image} 
-                      alt={review.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <h3 className="fontMont font-bold text-base text-black">{review.name}</h3>
-                    <p className="fontMont text-xs text-gray-500">{review.date}</p>
-                  </div>
-                </div>
-                <svg className="w-5 h-5 flex-shrink-0 fill-[#4285F4]" viewBox="0 0 24 24">
-                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+        <div className="relative px-4 sm:px-6">
+          <div className="flex items-center justify-between mb-4">
+            <p className="fontMont text-sm text-gray-500">Swipe to read more reviews</p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                aria-label="Scroll testimonials left"
+                onClick={() => scrollTestimonials(-1)}
+                className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:text-[#7FFF00] hover:border-[#7FFF00] transition"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
-              </div>
-              <div className="flex items-center gap-1">
-                {[...Array(review.rating)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 fill-[#FBBC04]" viewBox="0 0 24 24">
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="fontMont text-sm sm:text-base text-gray-700 leading-relaxed">{review.text}</p>
+              </button>
+              <button
+                type="button"
+                aria-label="Scroll testimonials right"
+                onClick={() => scrollTestimonials(1)}
+                className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:text-[#7FFF00] hover:border-[#7FFF00] transition"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
-          ))}
+          </div>
+          <div
+            className="overflow-hidden -mx-2"
+          >
+            <div
+              ref={reviewsTrackRef}
+              className="flex gap-5 px-2 snap-x snap-mandatory overflow-x-auto hide-scrollbar"
+            >
+              {[
+                {
+                  name: "Ange Dallo",
+                  initials: "AD",
+                  date: "5 months ago",
+                  meta: "5 reviews · 5 photos",
+                  badge: "Reasonable price",
+                  rating: 5,
+                  text: "Herman and his crew were terrific! I had received three other estimates in addition to LI Construction, and I am pleased with my selection—prompt, courteous attention throughout the entire project and even afterwards. Herman has returned a few times to make adjustments for things we could only know after the project was completed. They were on-site for 2 weeks, on time and budget. I am thrilled and have recommended them to others who have also had work done. An entirely new roof down to the studs, new siding and seamless gutters.",
+                },
+                {
+                  name: "Matthew Crennan",
+                  initials: "MC",
+                  date: "5 months ago",
+                  meta: "3 reviews · 2 photos",
+                  rating: 5,
+                  text: "I have known Herman and his team for over 10 years. After Hurricane Sandy blew off my roof, Herman arrived the next morning to tarp it and his crew replaced the roof a few days later. Since then I've relied on him for every roofing and siding need—from a full siding replacement in 2021 to reroofing and siding my sheds. Herman is professional, punctual, and courteous, and his crew always leaves the job site spotless. I recommend Long Island Construction Plus to anyone.",
+                },
+                {
+                  name: "Grace McGuire",
+                  initials: "GM",
+                  date: "8 months ago",
+                  meta: "6 reviews · 4 photos",
+                  rating: 5,
+                  text: "Herman and his crew did such a wonderful job making my house beautiful! They worked tirelessly for 3 full days siding the front of my house and even installed a much needed railing on the side of my front steps. I would recommend this company to anyone who wants reliable, beautiful home improvement work!",
+                },
+                {
+                  name: "Peter Kassimis",
+                  initials: "PK",
+                  date: "6 months ago",
+                  meta: "8 reviews · 4 photos",
+                  badge: "Reasonable price",
+                  rating: 5,
+                  text: "I had a great experience with George. He gave me estimates, suggestions, and clear timelines. The team installed a new roof, added a portico, replaced skylights, installed a chimney chase, outdoor high hats, a chandelier, new gutters, garage-door molding, a driveway, and fresh stoop and pavers. Rain caused minor delays, but they worked long days and weekends to finish on time.",
+                },
+                {
+                  name: "Brigette Renaud",
+                  initials: "BR",
+                  date: "2 months ago",
+                  meta: "Local Guide · 16 reviews",
+                  badge: "Great price",
+                  rating: 5,
+                  text: "Long Island Construction Plus did an amazing emergency roof replacement for us in Suffolk County. Hermann credited part of our repair costs toward the full roof replacement, and the enhanced tiles now protect us from wind and water. The entire job was done in just a couple of days, and they even helped us with dust cleanup inside afterward. We plan to use them for many more jobs.",
+                },
+                {
+                  name: "R R",
+                  initials: "RR",
+                  date: "1 month ago",
+                  meta: "7 reviews",
+                  rating: 5,
+                  text: "Santos and his crew demo'd 2 large sheds and installed a complete new roof and gutter system on our house. Work was scheduled very quickly and completed to our satisfaction. Santos and team were courteous and professional and very willing to address all of our preferences at a fair price. Will use them again for other projects.",
+                },
+              ].map((review, idx) => (
+                <div
+                  key={`${review.name}-${idx}`}
+                  className="testimonial-card bg-white rounded-2xl shadow-md hover:shadow-xl border border-gray-100 flex flex-col gap-4 p-6 transition-all duration-300 reveal-from-bottom min-w-[300px] sm:min-w-[340px] snap-start"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="reviewer-avatar w-12 h-12 sm:w-14 sm:h-14 rounded-full flex-shrink-0 shadow-md ring-2 ring-white bg-gradient-to-br from-[#007FFF] to-[#00B8FF] flex items-center justify-center text-white fontNF text-sm sm:text-base">
+                        {review.initials}
+                      </div>
+                      <div className="flex flex-col">
+                        <h3 className="fontMont font-bold text-base text-black">{review.name}</h3>
+                        <p className="fontMont text-xs text-gray-500">{review.meta}</p>
+                        <p className="fontMont text-xs text-gray-500">{review.date}</p>
+                      </div>
+                    </div>
+                    <svg className="w-5 h-5 flex-shrink-0 fill-[#4285F4]" viewBox="0 0 24 24">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                    </svg>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <svg key={i} className="w-5 h-5 fill-[#FBBC04]" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                      </svg>
+                    ))}
+                  </div>
+                  {review.badge && (
+                    <span className="self-start inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#ECFDF3] text-[#065F46] text-xs fontMont font-semibold">
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {review.badge}
+                    </span>
+                  )}
+                  <p className="fontMont text-sm sm:text-base text-gray-700 leading-relaxed">{review.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         <button 
-          onClick={() => window.open('https://www.google.com/maps/place/Long+Island+Construction+Plus', '_blank')}
+          onClick={() => window.open('https://share.google/9loNOTEDxxyrMeKNl', '_blank')}
           className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4 pop-in"
         >
           Read more on Google
@@ -1290,7 +1408,7 @@ function App() {
       </div>
 
       <div 
-        className="w-full py-16 sm:py-20 px-4 sm:px-6 fade-section scroll-reveal relative overflow-hidden"
+        className="w-full py-12 sm:py-16 px-4 sm:px-6 fade-section scroll-reveal relative overflow-hidden"
         style={{
           backgroundImage: "url('/assets/images/footerBeforeBanner.png')",
           backgroundPosition: "bottom center",
@@ -1301,8 +1419,8 @@ function App() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-black/50" />
         
         <div className="relative max-w-5xl mx-auto">
-          <div className="cta-section-card bg-white/95 backdrop-blur-sm rounded-3xl p-8 sm:p-12 border border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
-            <div className="flex flex-col items-center gap-6 sm:gap-8 text-center">
+          <div className="cta-section-card bg-white/95 backdrop-blur-sm rounded-3xl p-6 sm:p-10 border border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+            <div className="flex flex-col items-center gap-5 sm:gap-6 text-center">
               <div className="flex flex-col gap-3 reveal-from-bottom">
                 <h2 className="fontNF text-3xl sm:text-5xl lg:text-6xl font-black text-black leading-tight">
                   READY TO GET <span className="text-[#7FFF00] drop-shadow-[0_2px_8px_rgba(127,255,0,0.5)]">STARTED?</span>
@@ -1316,7 +1434,7 @@ function App() {
                 We'll respond quickly to schedule your on-site inspection and provide honest, competitive pricing.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto mt-4 reveal-from-bottom">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 w-full sm:w-auto mt-3 reveal-from-bottom">
                 <button 
                   onClick={handleQuoteScroll}
                   className="group fontMont text-black font-bold text-base sm:text-lg rounded-2xl px-8 py-4 flex justify-center items-center gap-3 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] transition-all duration-300 shadow-[0_10px_30px_rgba(127,255,0,0.3)] hover:shadow-[0_15px_40px_rgba(127,255,0,0.45)] hover:scale-105 relative overflow-hidden"
@@ -1366,8 +1484,8 @@ function App() {
         </div>
       </div>
 
-      <div className="flex flex-col mt-8">
-        <div className="footer bg-[#007FFF] flex sm:flex-row flex-col w-full justify-between rounded-tr-3xl rounded-tl-3xl pt-8 px-4 sm:px-10">
+      <div className="flex flex-col mt-6">
+        <div className="footer bg-[#007FFF] flex sm:flex-row flex-col w-full justify-between rounded-tr-3xl rounded-tl-3xl pt-6 px-4 sm:px-10">
           <div className="flex flex-col gap-3 w-full sm:w-[30%] text-white fontMont text-sm py-6">
             <img className="w-[80%] pb-6" src="/assets/images/logo.png" alt="Long Island Construction Plus+" />
             {[
@@ -1398,7 +1516,7 @@ function App() {
               </div>
             ))}
           </div>
-          <div className="w-full sm:w-[20%] text-white fontMont text-sm flex flex-col gap-3 sm:pl-10 py-6">
+          <div className="w-full sm:w-[20%] text-white fontMont text-sm flex flex-col gap-2.5 sm:pl-10 py-6">
             <h2 className="uppercase font-black text-lg sm:text-base mb-1">Quick Links</h2>
             {[
               { label: "Home", href: "#home" },
@@ -1487,7 +1605,15 @@ function App() {
         <div className="bg-[#007FFF] pb-5 h-fit w-full text-sm text-white fontMont flex flex-col sm:flex-row justify-evenly pt-5">
           <p className="text-xs max-sm:text-center">Privacy Policy | Your Privacy Choices</p>
           <p className="text-xs max-sm:text-center">
-            © 2025 Long Island Construction Plus+. All Rights Reserved. <span className="text-[#7FFF00]">Web Design</span> By Latin Branding
+            © 2025 Long Island Construction Plus+. All Rights Reserved. <span className="text-[#7FFF00]">Web Design</span> by{" "}
+            <a
+              href="https://brandedstrong.com"
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-[#7FFF00]"
+            >
+              Branded Stronge
+            </a>
           </p>
         </div>
       </div>
