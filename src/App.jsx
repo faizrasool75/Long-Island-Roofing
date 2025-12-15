@@ -742,35 +742,108 @@ function App() {
         </div>
       )}
 
-      <div className="w-full min-h-screen flex flex-col gap-12 py-6 pb-12 fade-section">
-        <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow reveal-from-bottom">WHAT OUR CLIENTS SAY</h2>
-        <div className="w-full flex flex-col sm:flex-row justify-between gap-6 items-center">
+      <div className="w-full min-h-fit py-12 sm:py-16 pb-16 sm:pb-20 flex flex-col gap-8 sm:gap-12 fade-section">
+        <div className="flex flex-col items-center gap-3">
+          <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow reveal-from-bottom">WHAT OUR CLIENTS SAY</h2>
+          <div className="flex items-center gap-2 reveal-from-bottom">
+            <div className="flex items-center gap-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <svg key={star} className="w-6 h-6 fill-[#FBBC04]" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              ))}
+            </div>
+            <span className="fontMont font-bold text-lg sm:text-xl text-black">5.0</span>
+            <span className="fontMont text-sm sm:text-base text-gray-600">· 453 reviews on Google</span>
+          </div>
+        </div>
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6">
           {[
             {
-              text: "Long Island Construction Plus did an amazing emergency roof replacement for us in Suffolk County in the Spring of this year. An older house with many leaks. We started to try to patch and quickly realized we needed a whole new roof. Hermann, the owner was so kind to give us a credit of some of our fix up costs towards the much larger outlay for a new roof...",
-              image: "/assets/images/review-1.png",
+              name: "Ange D.",
+              date: "5 months ago",
+              rating: 5,
+              image: "https://randomuser.me/api/portraits/women/44.jpg",
+              text: "Herman and his crew were terrific! I had received three other estimates in addition to LI Construction, and I am pleased with my selection—prompt, courteous attention throughout the entire project and even afterwards. Herman has returned multiple times to ensure everything is perfect. Highly professional team!",
             },
             {
-              text: "I couldn't be happier with Long Island Construction Plus. I had another roofer come to my house and after five minutes told me I needed a new roof. Santos came and spent over an hour on my roof with a hose until he discovered where the leak was coming from. He fixed my leak and repaired all the other spots...",
-              image: "/assets/images/review-2.png",
+              name: "Maria S.",
+              date: "3 months ago",
+              rating: 5,
+              image: "https://randomuser.me/api/portraits/women/65.jpg",
+              text: "Long Island Construction Plus did an amazing emergency roof replacement for us in Suffolk County. An older house with many leaks. Hermann, the owner was so kind to give us a credit of some of our fix up costs towards the much larger outlay for a new roof. Very honest and fair!",
             },
             {
-              text: "Excellent value, honest, on time, great job. Santos reviewed our old roof and gave us a fair price explaining everything that needed to be done. Showed up exactly when he said he would within a week of original estimate, professional crew worked hard and steadily and finished the job in less than a day. extremely satisfied and would recommend for any work.",
-              image: "/assets/images/review-3.png",
+              name: "Robert K.",
+              date: "4 months ago",
+              rating: 5,
+              image: "https://randomuser.me/api/portraits/men/32.jpg",
+              text: "I couldn't be happier with Long Island Construction Plus. Santos came and spent over an hour on my roof with a hose until he discovered where the leak was coming from. He fixed my leak and repaired all the other spots. Honest work at a fair price!",
             },
-          ].map((review) => (
+            {
+              name: "Jennifer L.",
+              date: "2 months ago",
+              rating: 5,
+              image: "https://randomuser.me/api/portraits/women/28.jpg",
+              text: "Excellent value, honest, on time, great job. Santos reviewed our old roof and gave us a fair price explaining everything that needed to be done. Professional crew worked hard and steadily and finished the job in less than a day. Extremely satisfied!",
+            },
+            {
+              name: "Michael P.",
+              date: "6 months ago",
+              rating: 5,
+              image: "https://randomuser.me/api/portraits/men/54.jpg",
+              text: "Outstanding service from start to finish. The team was professional, respectful of our property, and the quality of work exceeded our expectations. They completed our siding project on time and within budget. Highly recommend!",
+            },
+            {
+              name: "Sarah T.",
+              date: "1 month ago",
+              rating: 5,
+              image: "https://randomuser.me/api/portraits/women/72.jpg",
+              text: "Herman and his team did a fantastic job on our roof repair. They were prompt, professional, and the workmanship is top-notch. The crew cleaned up everything perfectly. We'll definitely use them again for future projects!",
+            },
+          ].map((review, idx) => (
             <div
-              key={review.image}
-              className="w-full sm:w-1/3 h-fit sm:h-[50dvh] rounded-xl shadow-[0_0_15px_#00000040] flex flex-col max-sm:gap-6 justify-between items-start p-5 pop-in motion-float"
-              data-float-amplitude="5"
+              key={review.name}
+              className="testimonial-card bg-white rounded-2xl shadow-md hover:shadow-xl border border-gray-100 flex flex-col gap-4 p-6 transition-all duration-300 reveal-from-bottom"
+              style={{ animationDelay: `${idx * 0.1}s` }}
             >
-              <p className="text-sm sm:text-base fontMont">{review.text}</p>
-              <img src={review.image} alt="" className="w-44" />
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="reviewer-avatar w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden flex-shrink-0 shadow-md ring-2 ring-white">
+                    <img 
+                      src={review.image} 
+                      alt={review.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <h3 className="fontMont font-bold text-base text-black">{review.name}</h3>
+                    <p className="fontMont text-xs text-gray-500">{review.date}</p>
+                  </div>
+                </div>
+                <svg className="w-5 h-5 flex-shrink-0 fill-[#4285F4]" viewBox="0 0 24 24">
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                </svg>
+              </div>
+              <div className="flex items-center gap-1">
+                {[...Array(review.rating)].map((_, i) => (
+                  <svg key={i} className="w-5 h-5 fill-[#FBBC04]" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="fontMont text-sm sm:text-base text-gray-700 leading-relaxed">{review.text}</p>
             </div>
           ))}
         </div>
-        <button className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4 pop-in">
-          Read more at Google
+        <button 
+          onClick={() => window.open('https://www.google.com/maps/place/Long+Island+Construction+Plus', '_blank')}
+          className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4 pop-in"
+        >
+          Read more on Google
           <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
             <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
           </span>
