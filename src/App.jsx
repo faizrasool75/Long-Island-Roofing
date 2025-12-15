@@ -62,6 +62,7 @@ function App() {
   const [showModalQuote, setShowModalQuote] = useState(false);
   const [quoteActive, setQuoteActive] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
+  const [quoteStatus, setQuoteStatus] = useState({ hero: false, modal: false });
 
   useEffect(() => {
     let swiperInstance;
@@ -189,6 +190,60 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const revealElements = document.querySelectorAll(
+      ".reveal-from-right, .reveal-from-left, .reveal-from-bottom, .pop-in"
+    );
+    if (!revealElements.length) return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      revealElements.forEach((el) => el.classList.add("motion-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("motion-visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+    revealElements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const floatElements = document.querySelectorAll(".motion-float");
+    if (!floatElements.length) return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      floatElements.forEach((el) => {
+        el.style.transform = "none";
+      });
+      return;
+    }
+    let frameId;
+    const animate = (timestamp) => {
+      floatElements.forEach((el, index) => {
+        const speed = parseFloat(el.dataset.floatSpeed) || 0.6;
+        const amplitude = parseFloat(el.dataset.floatAmplitude) || 8;
+        const phase = parseFloat(el.dataset.floatPhase) || index * 0.6;
+        const drift = Math.max(Math.min(window.scrollY * 0.03, 30), -20);
+        const y = Math.sin((timestamp / 1000) * speed + phase) * amplitude + drift;
+        const x = Math.cos((timestamp / 1200) * speed + phase) * amplitude * 0.25;
+        el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      });
+      frameId = requestAnimationFrame(animate);
+    };
+    frameId = requestAnimationFrame(animate);
+    return () => {
+      if (frameId) cancelAnimationFrame(frameId);
+    };
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (quoteTimerRef.current) {
         clearTimeout(quoteTimerRef.current);
@@ -230,17 +285,21 @@ function App() {
 
   const handleQuoteScroll = () => {
     quickQuoteRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setQuoteStatus((prev) => ({ ...prev, modal: false }));
     setShowModalQuote(true);
     flashQuoteActive();
   };
 
   const handleQuoteSubmit = (event, options = {}) => {
     event.preventDefault();
+    const { closeModal = false, formKey = "hero" } = options;
+    const formElement = event.target;
+    setQuoteStatus((prev) => ({ ...prev, [formKey]: true }));
+    formElement.reset();
     flashQuoteActive();
-    if (options.closeModal) {
+    if (closeModal) {
       setShowModalQuote(false);
     }
-    // Placeholder: hook up API call or validation here later.
   };
 
   const handleFooterSubmit = (event) => {
@@ -249,14 +308,16 @@ function App() {
     // Placeholder: handle footer form data submission here.
   };
 
-  const renderQuoteForm = (variant = "hero") => (
+  const renderQuoteForm = (variant = "hero") => {
+    const formKey = variant === "modal" ? "modal" : "hero";
+    return (
     <form
       id="quick-quote"
       ref={variant === "hero" ? quickQuoteRef : null}
       className={`w-full max-sm:rounded-xl sm:w-[80%] bg-black sm:bg-black/70 p-8 flex flex-col gap-6 justify-start items-center border-2 transition ${
         quoteActive ? "border-[#7FFF00] shadow-[0_0_25px_rgba(127,255,0,0.55)]" : "border-transparent"
       }`}
-      onSubmit={(event) => handleQuoteSubmit(event, { closeModal: variant === "modal" })}
+      onSubmit={(event) => handleQuoteSubmit(event, { closeModal: false, formKey })}
     >
       {variant === "modal" && (
         <button
@@ -297,6 +358,11 @@ function App() {
       >
         Get a Quote
       </button>
+      {quoteStatus[formKey] && (
+        <p className="text-sm text-[#7FFF00] fontMont text-center" aria-live="polite">
+          Awesome! We'll be in contact with you as soon as possible
+        </p>
+      )}
       {variant === "modal" && (
         <button
           type="button"
@@ -307,7 +373,8 @@ function App() {
         </button>
       )}
     </form>
-  );
+    );
+  };
 
   return (
     <div className="main px-0 sm:px-2 pt-2 pb-0">
@@ -407,20 +474,20 @@ function App() {
 
       <div className="hero fade-section bg-no-repeat bg-contain sm:bg-cover bg-top sm:bg-top-left flex-col sm:flex-row w-full min-h-screen pt-28 sm:pt-52 pb-6 sm:pb-16 flex justify-between items-center gap-6 px-0 sm:px-6 relative">
         <div className="w-fit flex flex-col justify-start items-start gap-4 sm:pl-8">
-          <h1 className="text-5xl fontNF text-white leading-[1.2] hidden sm:block fade-heading">
+          <h1 className="text-5xl fontNF text-white leading-[1.2] hidden sm:block fade-heading reveal-from-left">
             RESIDENTIAL <span className="font-extrabold">&</span><br />
             COMMERCIAL <br />
             <span className="text-[#7FFF00]">ROOFING</span> <br />
             <span className="text-[#7FFF00]">EXPERTS</span> <br />
             YOU CAN <span className="text-[#7FFF00]">TRUST</span>
           </h1>
-          <h1 className="text-[2rem] fontNF text-white leading-[49px] align-middle sm:hidden text-center fade-heading hero-mobile-heading">
+          <h1 className="text-[2rem] fontNF text-white leading-[49px] align-middle sm:hidden text-center fade-heading reveal-from-right hero-mobile-heading">
             RESIDENTIAL <span className="font-extrabold">&</span>COMMERCIAL
             <span className="text-[#7FFF00]">ROOFING</span>
             <span className="text-[#7FFF00]">EXPERTS</span> YOU CAN
             <span className="text-[#7FFF00]">TRUST</span>
           </h1>
-          <p className="font-light text-white fontMont text-xl hidden sm:block">
+          <p className="font-light text-white fontMont text-xl hidden sm:block reveal-from-right">
             At <span className="font-semibold">Long Island Construction Plus+</span>, we bring over a <br />
             decade of experience delivering reliable, high-quality <br />
             roofing and exterior solutions for homes and businesses <br />
@@ -428,10 +495,10 @@ function App() {
             honest service, expert craftsmanship, and long-lasting <br />
             results you can count on.
           </p>
-          <p className="font-light text-white fontMont text-center text-base sm:hidden">
+          <p className="font-light text-white fontMont text-center text-base sm:hidden reveal-from-left">
             At <span className="font-semibold">Long Island Construction Plus+</span>, we bring over a decade of experience delivering reliable, high-quality roofing and exterior solutions for homes and businesses across Long Island. Our family-owned team is known for honest service, expert craftsmanship, and long-lasting results you can count on.
           </p>
-          <button className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4">
+          <button className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4 pop-in">
             Request Your Free Estimate
             <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
               <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
@@ -452,7 +519,7 @@ function App() {
         ].map((item, idx) => (
           <div
             key={item.label}
-            className="info-icon fade-heading"
+            className="info-icon fade-heading pop-in"
             style={{ animationDelay: `${idx * 0.15}s` }}
           >
             <img src={item.icon} alt={item.label} className="mx-auto mb-2 h-8 w-8" />
@@ -464,19 +531,21 @@ function App() {
       <div className="section-2 fade-section scroll-reveal bg-[#CCE5FF] h-fit sm:h-[80dvh] w-full rounded-3xl flex flex-col sm:flex-row items-center pb-5 sm:pb-0 mb-5 sm:mb-10">
         <div className="w-full sm:w-[50%] h-full">
           <img
-            className="w-full h-full object-cover rounded-3xl"
+            className="w-full h-full object-cover rounded-3xl motion-float"
             src="https://images.pexels.com/photos/5549240/pexels-photo-5549240.jpeg?_gl=1*d6cx0t*_ga*MTAxMzMxNDc4MS4xNzY1NjE2ODY5*_ga_8JE65Q40S6*czE3NjU2MTg5NzMkbzIkZzEkdDE3NjU2MjA2MjUkajIzJGwwJGgw"
             alt=""
+            data-float-speed="0.7"
+            data-float-amplitude="10"
           />
         </div>
         <div className="flex flex-col gap-5 w-full pt-5 sm:pt-0 sm:w-[50%] justify-center items-center">
-          <h2 className="text-[#7FFF00] text-3xl sm:text-4xl font-black uppercase fontNF max-sm:text-center hero-heading-shadow">
+          <h2 className="text-[#7FFF00] text-3xl sm:text-4xl font-black uppercase fontNF max-sm:text-center hero-heading-shadow reveal-from-bottom">
             Special Offer
           </h2>
-          <h1 className="text-black font-black text-4xl sm:text-7xl fontMont">$2,000 OFF</h1>
-          <h4 className="fontMont text-base sm:text-xl">on full roof replacement or full siding projects.</h4>
-          <p className="text-black fontMont text-lg italic font-light leading-normal">(Restrictions apply. Ask for details.)</p>
-          <button className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-8 py-3 flex justify-center items-center gap-4 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4">
+          <h1 className="text-black font-black text-4xl sm:text-7xl fontMont reveal-from-bottom">$2,000 OFF</h1>
+          <h4 className="fontMont text-base sm:text-xl reveal-from-bottom">on full roof replacement or full siding projects.</h4>
+          <p className="text-black fontMont text-lg italic font-light leading-normal reveal-from-bottom">(Restrictions apply. Ask for details.)</p>
+          <button className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-8 py-3 flex justify-center items-center gap-4 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4 pop-in">
             Claim Your Offer Now
             <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
               <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
@@ -487,13 +556,13 @@ function App() {
 
       <div className="section3 fade-section scroll-reveal" id="services">
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
-          <h1 className="fontNF text-[#7FFF00] text-2xl sm:text-4xl uppercase w-full sm:w-[50%] hero-heading-shadow fade-heading is-visible text-center">
+          <h1 className="fontNF text-[#7FFF00] text-2xl sm:text-4xl uppercase w-full sm:w-[50%] hero-heading-shadow fade-heading is-visible text-center reveal-from-left">
             Our Services
           </h1>
-          <p className="text-start text-lg fontMont font-normal w-1/2 hidden sm:block">
+          <p className="text-start text-lg fontMont font-normal w-1/2 hidden sm:block reveal-from-right">
             We specialize in high-quality roofing, siding, and exterior solutions for residential and commercial properties across Long Island.
           </p>
-          <p className="text-sm fontMont font-normal sm:hidden text-center">
+          <p className="text-sm fontMont font-normal sm:hidden text-center reveal-from-right">
             We specialize in high-quality roofing, siding, and exterior solutions for residential and commercial properties across Long Island.
           </p>
         </div>
@@ -546,11 +615,11 @@ function App() {
         id="why-us"
       >
         <div className="w-full sm:w-[55%] h-full flex gap-2 flex-col items-center sm:items-start py-8">
-          <h1 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl uppercase hero-heading-shadow">Why Choose</h1>
-          <h2 className="max-sm:text-center text-black fontMont text-xl sm:text-4xl font-black sm:whitespace-nowrap">
+          <h1 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl uppercase hero-heading-shadow reveal-from-left">Why Choose</h1>
+          <h2 className="max-sm:text-center text-black fontMont text-xl sm:text-4xl font-black sm:whitespace-nowrap reveal-from-left">
             Long Island Construction Plus+
           </h2>
-          <p className="text-black fontMont text-sm sm:text-base w-full text-center sm:w-[80%] sm:text-start">
+          <p className="text-black fontMont text-sm sm:text-base w-full text-center sm:w-[80%] sm:text-start reveal-from-bottom">
             We take pride in providing professional service, honest pricing, and exceptional workmanship for every project.
           </p>
           <div className="mt-4 flex flex-col gap-4 sm:text-start">
@@ -561,7 +630,7 @@ function App() {
               "Serving All Long Island Areas",
               "Fast, Reliable & Affordable",
             ].map((item) => (
-              <div key={item} className="gap-3 flex items-center justify-between w-fit">
+              <div key={item} className="gap-3 flex items-center justify-between w-fit reveal-from-bottom">
                 <img src="/assets/svg/tick.svg" alt="" className="w-5" />
                 <h3 className="text-black fontMont text-base sm:text-xl font-bold">{item}</h3>
               </div>
@@ -576,15 +645,20 @@ function App() {
         </div>
         <div className="w-full h-[50dvh] sm:h-[70dvh] sm:w-[45%] items-center pt-5 sm:pt-0 relative">
           <img
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-top motion-float"
             src="/assets/images/whyChoseSectionbg.png"
             alt=""
+            data-float-speed="0.8"
+            data-float-amplitude="7"
           />
           <div className="rounded-2xl overflow-hidden absolute -bottom-12 -left-40 hidden sm:block w-[350px] h-[50dvh] xl:h-[35dvh]">
             <img
-              className="object-cover object-top w-full h-full xl:scale-125"
+              className="object-cover object-top w-full h-full xl:scale-125 motion-float"
               src="/assets/images/whyusebanner-new.png"
               alt=""
+              data-float-speed="1"
+              data-float-amplitude="9"
+              data-float-phase="1.2"
             />
           </div>
         </div>
@@ -595,15 +669,15 @@ function App() {
         id="recent-projects"
       >
         <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
-        <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow">OUR RECENT PROJECTS</h2>
-          <p className="text-lg fontMont font-normal w-1/2 hidden sm:block">
+        <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow reveal-from-left">OUR RECENT PROJECTS</h2>
+          <p className="text-lg fontMont font-normal w-1/2 hidden sm:block reveal-from-right">
             Take a look at our latest roofing, siding, and exterior work across Long Island. Each project reflects our dedication to quality and customer satisfaction.
           </p>
-          <p className="text-sm fontMont font-normal sm:hidden text-center">
+          <p className="text-sm fontMont font-normal sm:hidden text-center reveal-from-right">
             Take a look at our latest roofing, siding, and exterior work across Long Island. Each project reflects our dedication to quality and customer satisfaction.
           </p>
         </div>
-        <div className="crousal w-full h-[50dvh] sm:h-[60dvh] relative">
+        <div className="crousal w-full h-[50dvh] sm:h-[60dvh] relative reveal-from-bottom">
           <div className="swiper mySwiper relative">
           <div className="swiper-wrapper">
             {[
@@ -642,7 +716,7 @@ function App() {
       )}
 
       <div className="w-full min-h-screen flex flex-col gap-12 py-6 pb-12 fade-section">
-        <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow">WHAT OUR CLIENTS SAY</h2>
+        <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow reveal-from-bottom">WHAT OUR CLIENTS SAY</h2>
         <div className="w-full flex flex-col sm:flex-row justify-between gap-6 items-center">
           {[
             {
@@ -660,14 +734,15 @@ function App() {
           ].map((review) => (
             <div
               key={review.image}
-              className="w-full sm:w-1/3 h-fit sm:h-[50dvh] rounded-xl shadow-[0_0_15px_#00000040] flex flex-col max-sm:gap-6 justify-between items-start p-5"
+              className="w-full sm:w-1/3 h-fit sm:h-[50dvh] rounded-xl shadow-[0_0_15px_#00000040] flex flex-col max-sm:gap-6 justify-between items-start p-5 pop-in motion-float"
+              data-float-amplitude="5"
             >
               <p className="text-sm sm:text-base fontMont">{review.text}</p>
               <img src={review.image} alt="" className="w-44" />
             </div>
           ))}
         </div>
-        <button className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4">
+        <button className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4 pop-in">
           Read more at Google
           <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
             <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
@@ -683,24 +758,24 @@ function App() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h2 className="text-2xl sm:text-4xl fontNF text-center">
+        <h2 className="text-2xl sm:text-4xl fontNF text-center reveal-from-bottom">
           READY TO GET <span className="text-[#7FFF00]">STARTED?</span>
         </h2>
-        <p className="text-lg fontMont font-light w-1/2 hidden sm:block text-center">
+        <p className="text-lg fontMont font-light w-1/2 hidden sm:block text-center reveal-from-bottom">
           Contact our expert roofing team today and ask for your <span className="font-semibold text-[#7FFF00]">FREE ESTIMATE.</span> <br />
           We'll respond quickly to schedule your on-site inspection.
         </p>
-        <p className="text-sm fontMont font-normal sm:hidden text-center">
+        <p className="text-sm fontMont font-normal sm:hidden text-center reveal-from-bottom">
           Take a look at our latest roofing, siding, and exterior work across Long Island. Each project reflects our dedication to quality and customer satisfaction.
         </p>
         <div className="w-full flex gap-6 flex-col sm:flex-row justify-center items-center">
-          <button className="fontMont text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4">
+          <button className="fontMont text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4 pop-in">
             Request Your Free Estimate
             <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
               <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
             </span>
           </button>
-          <button className="fontMont text-white font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-transparent hover:bg-[#ffffff] duration-200 ease-in hover:text-black mt-4 border border-[#7FFF00] hover:border-transparent">
+          <button className="fontMont text-white font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-transparent hover:bg-[#ffffff] duration-200 ease-in hover:text-black mt-4 border border-[#7FFF00] hover:border-transparent pop-in">
             Call Now: (631) 484-0098
             <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
               <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />

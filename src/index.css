@@ -279,6 +279,40 @@ button.btn-visible {
     transform: translate(0,0);
 }
 
+.reveal-from-right,
+.reveal-from-left,
+.reveal-from-bottom,
+.pop-in {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-from-right {
+    transform: translateX(60px);
+}
+
+.reveal-from-left {
+    transform: translateX(-60px);
+}
+
+.reveal-from-bottom {
+    transform: translateY(60px);
+}
+
+.pop-in {
+    transform: scale(0.92) translateY(10px);
+}
+
+.motion-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+.motion-float {
+    will-change: transform;
+    transition: transform 0.4s ease-out;
+}
+
 .slide-card,
 .info-icon {
     transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -308,8 +342,22 @@ button:active {
   .scroll-reveal-left,
   button,
   .slide-card,
-  .info-icon {
+  .info-icon,
+  .reveal-from-right,
+  .reveal-from-left,
+  .reveal-from-bottom,
+  .pop-in,
+  .motion-float {
     transition: none;
+  }
+
+  .reveal-from-right,
+  .reveal-from-left,
+  .reveal-from-bottom,
+  .pop-in,
+  .motion-float {
+    opacity: 1;
+    transform: none;
   }
 }
 
