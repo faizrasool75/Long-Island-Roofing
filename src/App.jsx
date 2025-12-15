@@ -400,224 +400,486 @@ function App() {
 
   return (
     <div className="main px-0 sm:px-2 pt-0 pb-0">
+      {/* Mobile Menu */}
       <div
-      id="mobileMenu"
-        className={`fixed inset-0 h-full w-full bg-black text-white z-[99999] translate-x-full transition-transform duration-300 md:hidden p-6 ${
-          mobileMenuOpen ? "translate-x-0" : ""
+        id="mobileMenu"
+        className={`fixed inset-0 h-full w-full bg-gradient-to-br from-black via-gray-900 to-black text-white z-[99999] transition-all duration-300 md:hidden ${
+          mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        <div className="flex justify-end items-start">
-          <button
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-12 h-12 rounded-full hover:text-black hover:bg-white text-black bg-[#7FFF00] flex sm:hidden justify-center items-center text-2xl"
-          >
-            <i className="ri-close-line"></i>
-          </button>
-        </div>
-        <ul className="space-y-6 text-lg font-semibold flex h-full flex-col items-center justify-start relative pt-10">
-          {navLinks.map((item) => (
-            <li key={item.label}>
-              <a
-                href={item.href}
-                className="hover:text-[#7CFF00]"
-                onClick={(e) => handleSmoothScroll(e, item.href)}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-          <li>
-            <div className="flex flex-col items-center gap-4">
+        <div className="h-full flex flex-col p-6">
+          {/* Mobile Menu Header */}
+          <div className="flex justify-between items-center mb-8">
+            <img src="/assets/images/logo.png" alt="Long Island Construction Plus+" className="w-36" />
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-12 h-12 rounded-full hover:rotate-90 text-white bg-[#7FFF00] hover:bg-white hover:text-black flex justify-center items-center text-2xl transition-all duration-300"
+              aria-label="Close menu"
+            >
+              <i className="ri-close-line"></i>
+            </button>
+          </div>
+
+          {/* Mobile Menu Links */}
+          <nav className="flex-1 flex flex-col items-center justify-center">
+            <ul className="space-y-6 text-center">
+              {navLinks.filter(item => item.label !== "Home").map((item, idx) => (
+                <li 
+                  key={item.label}
+                  className="mobile-menu-item opacity-0"
+                  style={{ 
+                    animation: mobileMenuOpen ? `fadeInUp 0.4s ease-out ${idx * 0.1}s forwards` : 'none'
+                  }}
+                >
+                  <a
+                    href={item.href}
+                    className="fontMont text-xl font-semibold text-white hover:text-[#7FFF00] transition-colors duration-200 inline-block"
+                    onClick={(e) => handleSmoothScroll(e, item.href)}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            {/* Mobile Menu CTAs */}
+            <div className="flex flex-col items-center gap-4 mt-12 w-full max-w-sm">
               <button
                 type="button"
                 onClick={() => {
                   handleQuoteScroll();
                   setMobileMenuOpen(false);
                 }}
-                className="fontMont mt-12 text-black font-bold text-sm sm:text-base rounded-full px-8 py-3 flex justify-center items-center gap-2 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] transition duration-200 ease-in text-base shadow-[0_10px_30px_rgba(127,255,0,0.35)]"
+                className="w-full fontMont text-black font-bold text-base rounded-2xl px-8 py-4 flex justify-center items-center gap-3 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] transition-all duration-300 shadow-[0_10px_30px_rgba(127,255,0,0.4)]"
               >
-                Get a Quote
-                <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
-                  <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
-                </span>
+                <span>Get a Quote</span>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
               </button>
-            <button
-              type="button"
-              className="mt-4 rounded-full border border-[#7FFF00] bg-transparent px-8 py-3 text-xs font-semibold uppercase tracking-widest text-[#7FFF00] hover:bg-[#7FFF00] hover:text-black transition"
-              onClick={() => {
-                window.location.href = "tel:+16314840098";
-                setMobileMenuOpen(false);
-              }}
-            >
-              Call Now: (631) 484-0098
-            </button>
+              
+              <a
+                href="tel:+16314840098"
+                className="w-full fontMont text-[#7FFF00] font-bold text-base rounded-2xl px-8 py-4 flex justify-center items-center gap-3 bg-transparent border-2 border-[#7FFF00] hover:bg-[#7FFF00] hover:text-black transition-all duration-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span>(631) 484-0098</span>
+              </a>
             </div>
-          </li>
-        </ul>
+          </nav>
+        </div>
       </div>
 
+      {/* Desktop Header */}
       <header
-        className={`w-full flex justify-between items-center fixed top-0 left-0 right-0 px-6 py-3 pt-7 z-[9999] transition-transform duration-300 ${
+        className={`w-full flex justify-between items-center fixed top-0 left-0 right-0 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 z-[9999] transition-all duration-300 backdrop-blur-md bg-black/40 border-b border-white/10 ${
           navHidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        <img src="/assets/images/logo.png" alt="Long Island Construction Plus+" className="w-32 sm:w-52" />
-        <div className="hidden sm:flex justtify-start items-center gap-8">
-          <div className="navMenu flex justify-start items-center gap-8">
+        <a href="#home" onClick={(e) => handleSmoothScroll(e, "#home")}>
+          <img 
+            src="/assets/images/logo.png" 
+            alt="Long Island Construction Plus+" 
+            className="w-28 sm:w-40 lg:w-48 transition-all duration-200 hover:scale-105" 
+          />
+        </a>
+        
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          {/* Navigation Menu */}
+          <nav className="flex items-center gap-6 lg:gap-8">
             {navLinks.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleSmoothScroll(e, item.href)}
-                className="fontMont font-normal text-base hover:text-[#7FFF00] border border-transparent hover:border-b-[#7FFF00] duration-200 ease-in"
+                className="fontMont font-medium text-sm lg:text-base text-white hover:text-[#7FFF00] transition-all duration-200 relative group"
               >
-                {item.label}
+                <span className="relative z-10">{item.label}</span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7FFF00] group-hover:w-full transition-all duration-300" />
               </a>
             ))}
-          </div>
+          </nav>
+
+          {/* CTA Button */}
           <button
             type="button"
             onClick={handleQuoteScroll}
-            className="fontMont font-extrabold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00]"
+            className="fontMont font-bold text-sm lg:text-base rounded-xl px-5 lg:px-6 py-2.5 lg:py-3 flex items-center gap-2 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] text-black transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
           >
-            Get a Quote
-            <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
-              <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
-            </span>
+            <span>Get a Quote</span>
+            <svg className="w-4 h-4 lg:w-5 lg:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
           </button>
         </div>
+
+        {/* Mobile Menu Button */}
         <button
           id="menuBtn"
           onClick={() => setMobileMenuOpen(true)}
-          className="w-12 h-12 rounded-full hover:text-[#7FFF00] hover:bg-black text-black bg-[#7FFF00] flex sm:hidden justify-center items-center"
+          className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl hover:text-[#7FFF00] hover:bg-white text-black bg-[#7FFF00] flex md:hidden justify-center items-center transition-all duration-200 hover:scale-105"
+          aria-label="Open menu"
         >
           <i className="ri-menu-3-line text-xl font-extrabold"></i>
         </button>
       </header>
 
-      <div id="home" className="hero fade-section bg-no-repeat bg-cover bg-center sm:bg-cover sm:bg-top-left flex-col sm:flex-row w-full min-h-screen pt-24 sm:pt-52 pb-6 sm:pb-16 flex justify-between items-center gap-6 px-4 sm:px-6 relative">
-        <div className="w-full sm:w-fit flex flex-col justify-start items-start gap-4 sm:pl-8">
-          <h1 className="text-5xl fontNF text-white leading-[1.2] hidden sm:block fade-heading reveal-from-left">
-            RESIDENTIAL <span className="font-extrabold">&</span><br />
-            COMMERCIAL <br />
-            <span className="text-[#7FFF00]">ROOFING</span> <br />
-            <span className="text-[#7FFF00]">EXPERTS</span> <br />
-            YOU CAN <span className="text-[#7FFF00]">TRUST</span>
-          </h1>
-          <h1 className="text-[clamp(1.35rem,6vw,1.9rem)] fontNF text-white leading-[1.08] align-middle sm:hidden text-left fade-heading reveal-from-right hero-mobile-heading tracking-tight max-w-[18ch]">
-            RESIDENTIAL <span className="font-extrabold">&</span>COMMERCIAL
-            <span className="text-[#7FFF00]">ROOFING</span>
-            <span className="text-[#7FFF00]">EXPERTS</span> YOU CAN
-            <span className="text-[#7FFF00]">TRUST</span>
-          </h1>
-          <p className="font-light text-white fontMont text-xl hidden sm:block reveal-from-right">
-            At <span className="font-semibold">Long Island Construction Plus+</span>, we bring over a <br />
-            decade of experience delivering reliable, high-quality <br />
-            roofing and exterior solutions for homes and businesses <br />
-            across Long Island. Our family-owned team is known for <br />
-            honest service, expert craftsmanship, and long-lasting <br />
-            results you can count on.
-          </p>
-          <p className="font-light text-white fontMont text-center text-base sm:hidden reveal-from-left">
-            At <span className="font-semibold">Long Island Construction Plus+</span>, we bring over a decade of experience delivering reliable, high-quality roofing and exterior solutions for homes and businesses across Long Island. Our family-owned team is known for honest service, expert craftsmanship, and long-lasting results you can count on.
-          </p>
-          <button className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4 pop-in">
-            Request Your Free Estimate
-            <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
-              <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
-            </span>
-          </button>
+      <div id="home" className="hero-section fade-section relative min-h-screen flex items-center overflow-hidden" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
+        {/* Background with Overlay */}
+        <div className="absolute inset-0 hero-background bg-cover bg-center">
+          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
         </div>
-        <div className="w-full sm:w-[40%] flex justify-center sm:justify-start items-center">
-          {renderQuoteForm("hero")}
-        </div>
-      </div>
 
-      <div className="w-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 px-4 py-10">
-        {[
-          { icon: "/assets/svg/bannericon-1.svg", label: "SINCE 2012" },
-          { icon: "/assets/svg/bannericon-1.svg", label: "Family-Owned" },
-          { icon: "/assets/svg/bannericon-3.svg", label: "Licensed & Insured" },
-          { icon: "/assets/svg/bannericon-4.svg", label: "Serving Suffolk & Nassau County" },
-        ].map((item, idx) => (
-          <div
-            key={item.label}
-            className="info-icon reveal-from-bottom pop-in"
-            style={{ animationDelay: `${idx * 0.15}s` }}
-          >
-            <div className="info-icon-circle">
-              <img src={item.icon} alt={item.label} className="h-7 w-7 sm:h-8 sm:w-8" />
-            </div>
-            <p className="info-icon-title fontMont">{item.label}</p>
-          </div>
-        ))}
-      </div>
+        {/* Content Container */}
+        <div className="relative z-10 w-full px-4 sm:px-6 py-20 sm:py-24 lg:py-32">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-center justify-between">
+              
+              {/* Left Side - Hero Content */}
+              <div className="w-full md:w-[55%] lg:w-[50%] text-center md:text-left space-y-4 sm:space-y-6">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 reveal-from-left">
+                  <div className="w-2 h-2 bg-[#7FFF00] rounded-full animate-pulse" />
+                  <span className="fontMont text-xs font-semibold text-white uppercase tracking-wider">
+                    Trusted Since 2012
+                  </span>
+                </div>
 
-      <div className="section-2 fade-section scroll-reveal bg-[#CCE5FF] h-fit sm:h-[80dvh] w-full rounded-3xl flex flex-col sm:flex-row items-center pb-5 sm:pb-0 mb-5 sm:mb-10">
-        <div className="w-full sm:w-[50%] h-full">
-          <img
-            className="w-full h-full object-cover rounded-3xl motion-float"
-            src="https://images.pexels.com/photos/5549240/pexels-photo-5549240.jpeg?_gl=1*d6cx0t*_ga*MTAxMzMxNDc4MS4xNzY1NjE2ODY5*_ga_8JE65Q40S6*czE3NjU2MTg5NzMkbzIkZzEkdDE3NjU2MjA2MjUkajIzJGwwJGgw"
-            alt=""
-            data-float-speed="0.7"
-            data-float-amplitude="10"
-          />
-        </div>
-        <div className="flex flex-col gap-5 w-full pt-5 sm:pt-0 sm:w-[50%] justify-center items-center">
-          <h2 className="text-[#7FFF00] text-3xl sm:text-4xl font-black uppercase fontNF max-sm:text-center hero-heading-shadow reveal-from-bottom">
-            Special Offer
-          </h2>
-          <h1 className="text-black font-black text-4xl sm:text-7xl fontMont reveal-from-bottom">$2,000 OFF</h1>
-          <h4 className="fontMont text-base sm:text-xl reveal-from-bottom">on full roof replacement or full siding projects.</h4>
-          <p className="text-black fontMont text-lg italic font-light leading-normal reveal-from-bottom">(Restrictions apply. Ask for details.)</p>
-          <button className="fontMont mx-auto text-black font-bold text-sm sm:text-base rounded-xl px-8 py-3 flex justify-center items-center gap-4 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4 pop-in">
-            Claim Your Offer Now
-            <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
-              <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
-            </span>
-          </button>
-        </div>
-      </div>
+                {/* Main Headline - Smaller on mobile */}
+                <h1 className="fontNF text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] reveal-from-left">
+                  RESIDENTIAL <span className="font-extrabold">&</span>
+                  <br />
+                  COMMERCIAL
+                  <br />
+                  <span className="text-[#7FFF00] drop-shadow-[0_0_30px_rgba(127,255,0,0.5)]">
+                    ROOFING EXPERTS
+                  </span>
+                  <br />
+                  YOU CAN <span className="text-[#7FFF00]">TRUST</span>
+                </h1>
 
-      <div className="section3 fade-section scroll-reveal" id="services">
-        <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
-          <h1 className="fontNF text-[#7FFF00] text-2xl sm:text-4xl uppercase w-full sm:w-[50%] hero-heading-shadow fade-heading is-visible text-center reveal-from-left">
-            Our Services
-          </h1>
-          <p className="text-start text-lg fontMont font-normal w-1/2 hidden sm:block reveal-from-right">
-            We specialize in high-quality roofing, siding, and exterior solutions for residential and commercial properties across Long Island.
-          </p>
-          <p className="text-sm fontMont font-normal sm:hidden text-center reveal-from-right">
-            We specialize in high-quality roofing, siding, and exterior solutions for residential and commercial properties across Long Island.
-          </p>
-        </div>
-        <div className="sm:flex mt-4 sm:mt-8 w-full gap-6">
-          {[0, 1].map((column) => (
-            <div key={column} className="flex w-full flex-col gap-4">
-              {servicesData.slice(column * 4, column * 4 + 4).map((service, index) => {
-                const serviceIndex = column * 4 + index;
-                const isOpen = openService === serviceIndex;
-                return (
-                  <div
-                    key={service.title}
-                    className="accordion-item overflow-hidden rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300"
+                {/* Subheading */}
+                <p className="fontMont text-sm sm:text-base lg:text-lg text-gray-200 leading-relaxed max-w-2xl mx-auto md:mx-0 reveal-from-left">
+                  At <span className="font-bold text-white">Long Island Construction Plus+</span>, we bring over a decade of experience delivering reliable, high-quality roofing and exterior solutions for homes and businesses across Long Island.
+                </p>
+
+                {/* USPs */}
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4 reveal-from-left">
+                  {[
+                    { icon: "✓", text: "Licensed & Insured" },
+                    { icon: "✓", text: "Family-Owned" },
+                    { icon: "✓", text: "Free Estimates" }
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#7FFF00] flex items-center justify-center text-black font-bold text-xs sm:text-sm">
+                        {item.icon}
+                      </div>
+                      <span className="fontMont text-xs sm:text-sm text-white font-medium">
+                        {item.text}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start reveal-from-left">
+                  <button
+                    onClick={handleQuoteScroll}
+                    className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] text-black font-bold rounded-xl sm:rounded-2xl shadow-[0_10px_40px_rgba(127,255,0,0.4)] hover:shadow-[0_15px_50px_rgba(127,255,0,0.6)] transition-all duration-300 hover:scale-105 fontMont text-sm sm:text-base relative overflow-hidden"
                   >
-                    <button
-                      type="button"
-                      onClick={() => setOpenService(isOpen ? null : serviceIndex)}
-                      className="accordion-button w-full flex items-center gap-4 px-5 sm:px-6 py-4 sm:py-5 text-left transition-all duration-300 hover:bg-[#f8fbff] group"
-                      aria-expanded={isOpen}
-                      aria-label={`Toggle ${service.title}`}
-                    >
-                      <span className="flex-shrink-0 p-2.5 sm:p-3 rounded-full bg-gradient-to-br from-[#CCE5FF] to-[#e8f4ff] shadow-sm group-hover:shadow-md transition-shadow duration-300">
-                        <img src={service.icon} alt="" className="h-5 w-5 sm:h-6 sm:w-6" />
+                    <span className="relative z-10">Get Your Free Estimate</span>
+                    <svg className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </button>
+
+                  <a
+                    href="tel:+16314840098"
+                    className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold rounded-xl sm:rounded-2xl border-2 border-white/30 hover:border-white/50 transition-all duration-300 fontMont text-sm sm:text-base"
+                  >
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    <span className="whitespace-nowrap">(631) 484-0098</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Side - Quote Form */}
+              <div className="w-full md:w-[42%] lg:w-[45%] reveal-from-right">
+                {renderQuoteForm("hero")}
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 text-white/60 hover:text-white/90 transition-colors cursor-pointer animate-bounce">
+          <span className="fontMont text-xs uppercase tracking-wider">Scroll</span>
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+
+      <div className="w-full py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-b from-white via-gray-50 to-white border-y border-gray-100 fade-section scroll-reveal">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8 sm:mb-12 reveal-from-bottom">
+            <p className="fontMont text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">
+              Trusted by Homeowners Across Long Island
+            </p>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#007FFF] to-transparent mx-auto" />
+          </div>
+
+          <div className="trust-badges-grid grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+            {[
+              {
+                icon: (
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L3 7V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V7L12 2Z" fill="#007FFF" fillOpacity="0.1" stroke="#007FFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M9 12L11 14L15 10" stroke="#7FFF00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                title: "Licensed & Insured",
+                subtitle: "Fully Certified",
+              },
+              {
+                icon: (
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="#007FFF" fillOpacity="0.1" stroke="#007FFF" strokeWidth="2"/>
+                    <path d="M12 6V12L16 14" stroke="#7FFF00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                title: "Since 2012",
+                subtitle: "13+ Years Experience",
+              },
+              {
+                icon: (
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" fill="#007FFF" fillOpacity="0.1" stroke="#007FFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M9 22V12H15V22" stroke="#7FFF00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                title: "Family-Owned",
+                subtitle: "Local Business",
+              },
+              {
+                icon: (
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" fill="#007FFF" fillOpacity="0.1" stroke="#007FFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <circle cx="12" cy="10" r="3" fill="#7FFF00" stroke="#7FFF00" strokeWidth="2"/>
+                  </svg>
+                ),
+                title: "Long Island",
+                subtitle: "Suffolk & Nassau",
+              },
+            ].map((badge, idx) => (
+              <div
+                key={badge.title}
+                className="trust-badge-card bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 hover:border-[#007FFF] transition-all duration-300 shadow-sm hover:shadow-lg group reveal-from-bottom"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
+                <div className="flex flex-col items-center text-center gap-3 sm:gap-4">
+                  <div className="trust-badge-icon transition-transform duration-300 group-hover:scale-110">
+                    {badge.icon}
+                  </div>
+                  <div>
+                    <h3 className="fontMont text-sm sm:text-base font-bold text-gray-900 leading-tight mb-1">
+                      {badge.title}
+                    </h3>
+                    <p className="fontMont text-xs sm:text-sm font-medium text-gray-500">
+                      {badge.subtitle}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 sm:mt-12 text-center reveal-from-bottom">
+            <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-600 fontMont">
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-[#7FFF00]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="font-medium">A+ Rated</span>
+              </div>
+              <div className="hidden sm:block w-px h-4 bg-gray-300" />
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-[#7FFF00]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="font-medium">5-Star Reviews</span>
+              </div>
+              <div className="hidden sm:block w-px h-4 bg-gray-300" />
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-[#7FFF00]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="font-medium">Free Estimates</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="special-offer-section fade-section scroll-reveal w-full mb-10 sm:mb-16 px-3 sm:px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="special-offer-card bg-gradient-to-br from-[#007FFF] via-[#0099FF] to-[#00B8FF] rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,127,255,0.3)] border-2 border-white/20">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[500px]">
+              {/* Content Side - Left */}
+              <div className="flex flex-col justify-center items-start p-6 sm:p-8 md:p-12 lg:p-16 text-white order-2 lg:order-1">
+                <div className="space-y-4 sm:space-y-6 w-full reveal-from-left">
+                  <div className="inline-block">
+                    <span className="bg-[#7FFF00] text-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold uppercase tracking-wide fontMont">
+                      Limited Time Offer
+                    </span>
+                  </div>
+                  
+                  <h2 className="fontNF text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-tight">
+                    Save Big on Your
+                    <span className="block text-[#7FFF00] mt-1 sm:mt-2">Next Project!</span>
+                  </h2>
+                  
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20">
+                    <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
+                      <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black fontMont text-[#7FFF00] drop-shadow-[0_4px_12px_rgba(127,255,0,0.4)] leading-none">
+                        $2,000
                       </span>
-                      <span className="flex-1 text-sm sm:text-base font-bold text-black fontMont tracking-tight">
+                      <span className="text-2xl sm:text-3xl md:text-4xl font-bold fontMont">OFF</span>
+                    </div>
+                    <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg fontMont font-medium text-white/90 leading-snug">
+                      on full roof replacement or full siding projects
+                    </p>
+                  </div>
+
+                  <ul className="space-y-2.5 sm:space-y-3">
+                    {[
+                      "Premium materials included",
+                      "Professional installation",
+                      "Warranty coverage",
+                      "Free on-site consultation"
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-2.5 sm:gap-3">
+                        <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#7FFF00] flex items-center justify-center">
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <span className="fontMont text-sm sm:text-base md:text-lg font-medium">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button 
+                    onClick={handleQuoteScroll}
+                    className="group fontMont text-black font-bold text-sm sm:text-base md:text-lg rounded-xl sm:rounded-2xl px-6 sm:px-8 py-3.5 sm:py-4 flex items-center justify-center gap-2 sm:gap-3 bg-[#7FFF00] hover:bg-white transition-all duration-300 shadow-[0_10px_30px_rgba(127,255,0,0.4)] hover:shadow-[0_15px_40px_rgba(255,255,255,0.5)] active:scale-95 sm:hover:scale-105 w-full sm:w-auto touch-manipulation"
+                  >
+                    <span>Claim Your Offer Now</span>
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
+
+                  <p className="text-xs sm:text-sm text-white/70 italic fontMont leading-relaxed">
+                    * Restrictions apply. Contact us for complete details and eligibility requirements.
+                  </p>
+                </div>
+              </div>
+
+              {/* Image Side - Right */}
+              <div className="relative h-[280px] sm:h-[350px] md:h-[400px] lg:h-auto order-1 lg:order-2">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#007FFF]/20 to-transparent z-10" />
+                <img
+                  src="https://lh3.googleusercontent.com/geougc-cs/AMBA38vTLL8A_TsQPSjno-ej-op_WqPxJSwY6u2cHABn4taVnImgQcletcmmEt5iJpawWC28C-mr3ZL5mtjJ7-xXDxooDeLz5nAbxnMicRmwczcJZTcUFqf2MFhWw78a7nfJ8LuNT1DK=s3840-w3840-h1890-rw"
+                  alt="Roofing Project"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-t from-[#007FFF] to-transparent z-10 lg:hidden" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="section3 fade-section scroll-reveal py-12 sm:py-16 px-4 sm:px-6" id="services">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-10 sm:mb-14">
+            <h1 className="fontNF text-[#7FFF00] text-3xl sm:text-4xl lg:text-5xl uppercase hero-heading-shadow fade-heading reveal-from-bottom mb-4">
+              Our Services
+            </h1>
+            <p className="fontMont text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed reveal-from-bottom">
+              We specialize in high-quality roofing, siding, and exterior solutions for residential and commercial properties across Long Island.
+            </p>
+            <div className="w-20 h-1 bg-gradient-to-r from-[#007FFF] to-[#7FFF00] rounded-full mx-auto mt-6" />
+          </div>
+
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            {servicesData.map((service, index) => {
+              const isOpen = openService === index;
+              return (
+                <div
+                  key={service.title}
+                  className="service-accordion-card bg-white rounded-2xl border-2 border-gray-100 hover:border-[#007FFF]/30 transition-all duration-300 shadow-sm hover:shadow-xl reveal-from-bottom overflow-hidden"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // Close current if clicking the same one, otherwise open the clicked one (auto-closes others)
+                      setOpenService(isOpen ? null : index);
+                    }}
+                    className="w-full flex items-center gap-3 sm:gap-4 p-5 sm:p-6 text-left group transition-all duration-300"
+                    aria-expanded={isOpen}
+                    aria-label={`Toggle ${service.title}`}
+                  >
+                    {/* Icon */}
+                    <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                      isOpen 
+                        ? 'bg-gradient-to-br from-[#007FFF] to-[#0099FF] shadow-lg' 
+                        : 'bg-gradient-to-br from-[#e8f4ff] to-[#CCE5FF] group-hover:from-[#CCE5FF] group-hover:to-[#b3d9ff]'
+                    }`}>
+                      <img 
+                        src={service.icon} 
+                        alt="" 
+                        className={`h-6 w-6 sm:h-7 sm:w-7 transition-all duration-300 ${
+                          isOpen ? 'brightness-0 invert scale-110' : 'scale-100'
+                        }`}
+                      />
+                    </div>
+
+                    {/* Title */}
+                    <div className="flex-1 min-w-0">
+                      <h3 className={`fontMont text-base sm:text-lg font-bold leading-tight transition-colors duration-300 ${
+                        isOpen ? 'text-[#007FFF]' : 'text-gray-900 group-hover:text-[#007FFF]'
+                      }`}>
                         {service.title}
-                      </span>
+                      </h3>
+                      {!isOpen && (
+                        <p className="fontMont text-xs sm:text-sm text-gray-500 mt-1 line-clamp-1">
+                          Click to learn more
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Chevron */}
+                    <div className={`flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      isOpen 
+                        ? 'bg-[#7FFF00] rotate-180' 
+                        : 'bg-gray-100 group-hover:bg-[#007FFF]/10'
+                    }`}>
                       <svg
-                        className={`accordion-chevron flex-shrink-0 w-5 h-5 text-[#007FFF] transition-transform duration-300 ease-in-out ${
-                          isOpen ? "rotate-180" : "rotate-0"
+                        className={`w-5 h-5 transition-colors duration-300 ${
+                          isOpen ? 'text-black' : 'text-[#007FFF]'
                         }`}
                         fill="none"
                         viewBox="0 0 24 24"
@@ -626,97 +888,242 @@ function App() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                       </svg>
-                    </button>
-                    <div
-                      className={`accordion-content overflow-hidden transition-all duration-300 ease-in-out ${
-                        isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-                      }`}
-                    >
-                      <div className="px-5 sm:px-6 pb-4 sm:pb-5 pt-1">
-                        <div className="pl-0 sm:pl-12 border-l-0 sm:border-l-2 border-[#CCE5FF]">
-                          <p className="text-sm sm:text-base fontMont font-normal leading-relaxed text-gray-700">
-                            {service.detail}
-                          </p>
-                        </div>
+                    </div>
+                  </button>
+
+                  {/* Accordion Content */}
+                  <div
+                    className={`service-accordion-content transition-all duration-300 ease-in-out ${
+                      isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="px-5 sm:px-6 pb-5 sm:pb-6">
+                      <div className="pt-3 sm:pt-4 border-t-2 border-gray-100">
+                        <p className="fontMont text-sm sm:text-base text-gray-700 leading-relaxed mb-4">
+                          {service.detail}
+                        </p>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleQuoteScroll();
+                          }}
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-[#007FFF] text-white rounded-lg hover:bg-[#7FFF00] hover:text-black transition-all duration-200 fontMont text-sm font-semibold shadow-sm hover:shadow-md"
+                        >
+                          <span>Get a Free Quote</span>
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
+                        </button>
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          ))}
-        </div>
-      </div>
+                </div>
+              );
+            })}
+          </div>
 
-      <div
-        className="section4 fade-section scroll-reveal h-fit w-full relative px-10 items-start sm:flex mt-4 sm:mt-10 xl:pb-10 overflow-hidden"
-        id="why-us"
-      >
-        <div className="w-full sm:w-[55%] h-full flex gap-2 flex-col items-center sm:items-start py-8">
-          <h1 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl uppercase hero-heading-shadow reveal-from-left">Why Choose</h1>
-          <h2 className="max-sm:text-center text-black fontMont text-xl sm:text-4xl font-black sm:whitespace-nowrap reveal-from-left">
-            Long Island Construction Plus+
-          </h2>
-          <p className="text-black fontMont text-sm sm:text-base w-full text-center sm:w-[80%] sm:text-start reveal-from-bottom">
-            We take pride in providing professional service, honest pricing, and exceptional workmanship for every project.
-          </p>
-          <div className="mt-4 flex flex-col gap-4 sm:text-start">
-            {[
-              "Over 10 Years of Experience",
-              "Family-Owned & Trusted Locally",
-              "Fully Licensed & Insured",
-              "Serving All Long Island Areas",
-              "Fast, Reliable & Affordable",
-            ].map((item) => (
-              <div key={item} className="gap-3 flex items-center justify-between w-fit reveal-from-bottom">
-                <img src="/assets/svg/tick.svg" alt="" className="w-5" />
-                <h3 className="text-black fontMont text-base sm:text-xl font-bold">{item}</h3>
-              </div>
-            ))}
-            <button className="fontMont w-fit text-black font-bold text-sm sm:text-base rounded-xl px-6 py-3 flex justify-center items-center gap-2 bg-[#7FFF00] hover:bg-black duration-200 ease-in hover:text-[#7FFF00] mt-4">
-              Request Your Free Estimate
-              <span className="w-7 h-7 p-2 bg-black flex justify-center rounded-full items-center">
-                <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain" />
-              </span>
+          {/* CTA Below Services */}
+          <div className="mt-10 sm:mt-14 text-center reveal-from-bottom">
+            <p className="fontMont text-gray-600 mb-6 text-sm sm:text-base">
+              Don't see what you're looking for? We handle a wide range of roofing and exterior projects.
+            </p>
+            <button
+              onClick={handleQuoteScroll}
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] text-black font-bold rounded-2xl shadow-[0_10px_30px_rgba(127,255,0,0.3)] hover:shadow-[0_15px_40px_rgba(127,255,0,0.45)] transition-all duration-300 hover:scale-105 fontMont text-sm sm:text-base"
+            >
+              <span>Request a Custom Quote</span>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </button>
           </div>
         </div>
-        <div className="w-full h-[50dvh] sm:h-[70dvh] sm:w-[45%] items-center pt-5 sm:pt-0 relative">
-          <img
-            className="w-full h-full object-cover object-top motion-float"
-            src="/assets/images/whyChoseSectionbg.png"
-            alt=""
-            data-float-speed="0.8"
-            data-float-amplitude="7"
-          />
-          <div className="rounded-2xl overflow-hidden absolute -bottom-12 -left-40 hidden sm:block w-[350px] h-[50dvh] xl:h-[35dvh]">
-            <img
-              className="object-cover object-top w-full h-full xl:scale-125 motion-float"
-              src="/assets/images/whyusebanner-new.png"
-              alt=""
-              data-float-speed="1"
-              data-float-amplitude="9"
-              data-float-phase="1.2"
-            />
+      </div>
+
+      <div
+        className="why-choose-section fade-section scroll-reveal py-12 sm:py-16 lg:py-20 px-4 sm:px-6 overflow-hidden"
+        id="why-us"
+      >
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-10 sm:mb-14">
+            <h1 className="fontNF text-[#7FFF00] text-3xl sm:text-4xl lg:text-5xl uppercase hero-heading-shadow reveal-from-bottom mb-3">
+              Why Choose
+            </h1>
+            <h2 className="fontMont text-2xl sm:text-3xl lg:text-4xl font-black text-black mb-4 reveal-from-bottom">
+              Long Island Construction Plus+
+            </h2>
+            <p className="fontMont text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed reveal-from-bottom">
+              We take pride in providing professional service, honest pricing, and exceptional workmanship for every project. Here's why homeowners trust us.
+            </p>
+            <div className="w-20 h-1 bg-gradient-to-r from-[#007FFF] to-[#7FFF00] rounded-full mx-auto mt-6" />
+          </div>
+
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+            {/* Left Side - Benefits */}
+            <div className="space-y-6 reveal-from-left">
+              {[
+                {
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  ),
+                  title: "Over 13 Years of Experience",
+                  description: "Serving Long Island since 2012 with proven expertise and craftsmanship."
+                },
+                {
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                  ),
+                  title: "Family-Owned & Trusted Locally",
+                  description: "A local, family business committed to building lasting relationships."
+                },
+                {
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  ),
+                  title: "Fully Licensed & Insured",
+                  description: "Complete peace of mind with proper licensing and comprehensive insurance."
+                },
+                {
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  ),
+                  title: "Serving All Long Island Areas",
+                  description: "Comprehensive coverage across Suffolk and Nassau County."
+                },
+                {
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  ),
+                  title: "Fast, Reliable & Affordable",
+                  description: "Quick response times, dependable service, and honest competitive pricing."
+                },
+              ].map((benefit, idx) => (
+                <div
+                  key={benefit.title}
+                  className="why-choose-card bg-white rounded-2xl p-5 sm:p-6 border-2 border-gray-100 hover:border-[#007FFF]/30 transition-all duration-300 shadow-sm hover:shadow-lg group reveal-from-left"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#007FFF] to-[#0099FF] flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
+                      {benefit.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="fontMont text-base sm:text-lg font-bold text-gray-900 mb-2">
+                        {benefit.title}
+                      </h3>
+                      <p className="fontMont text-sm sm:text-base text-gray-600 leading-relaxed">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              <button
+                onClick={handleQuoteScroll}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] text-black font-bold rounded-2xl shadow-[0_10px_30px_rgba(127,255,0,0.3)] hover:shadow-[0_15px_40px_rgba(127,255,0,0.45)] transition-all duration-300 hover:scale-105 fontMont text-sm sm:text-base"
+              >
+                <span>Request Your Free Estimate</span>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Right Side - Images */}
+            <div className="relative reveal-from-right">
+              <div className="grid grid-cols-1 gap-4 sm:gap-6">
+                {/* Image 1 - Main */}
+                <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+                  <img
+                    src="https://lh3.googleusercontent.com/geougc-cs/AMBA38sCYIe2HbGuIvcv8fn-AyV4nIdpKKbtQmj_I11CIYlHpSwmjmHqelUyD2E5PbL_UHJE-DLNyLuDLGD35BN54hbptPr9VCZ4UNMMk5fwPFAKSjhrGD5DIx-mx9qcUbeavo4xyXww=s3840-w3840-h1890-rw"
+                    alt="Professional Roofing Work"
+                    className="w-full h-[250px] sm:h-[300px] lg:h-[350px] object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+
+                {/* Image 2 - Secondary */}
+                <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+                  <img
+                    src="https://lh3.googleusercontent.com/geougc-cs/AMBA38slMuTpxX9ZP7TtETQDG0nFeIdPk5DP9M7L9CxqiEQCyEPmw0E_3KlH9CMOFfu6SYSOmPXL9dMbNE6mKZxoj6INeygAoUbiiGKynEv2PhPwKVJhVmIVcW9HKVf1PHhjzx4jlXGW=s3840-w3840-h1890-rw"
+                    alt="Quality Construction Services"
+                    className="w-full h-[250px] sm:h-[300px] lg:h-[350px] object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+              </div>
+
+              {/* Floating Badge */}
+              <div className="absolute -top-4 -right-4 bg-gradient-to-br from-[#007FFF] to-[#0099FF] text-white rounded-2xl p-4 sm:p-6 shadow-2xl hidden lg:block">
+                <div className="text-center">
+                  <div className="text-3xl sm:text-4xl font-black fontMont mb-1">13+</div>
+                  <div className="text-xs sm:text-sm font-medium fontMont uppercase tracking-wide">Years</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-12 reveal-from-bottom">
+            {[
+              { number: "453+", label: "5-Star Reviews" },
+              { number: "13+", label: "Years Experience" },
+              { number: "100%", label: "Licensed & Insured" },
+              { number: "24/7", label: "Customer Support" },
+            ].map((stat, idx) => (
+              <div
+                key={stat.label}
+                className="stat-card bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 sm:p-6 border border-gray-200 text-center hover:shadow-lg transition-all duration-300"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#007FFF] fontMont mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-xs sm:text-sm font-medium text-gray-600 fontMont uppercase tracking-wide">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       <div
-        className="w-full min-h-fit py-12 sm:py-16 pb-16 sm:pb-20 flex flex-col gap-8 sm:gap-12 fade-section scroll-reveal-left"
+        className="recent-projects-section w-full py-12 sm:py-16 lg:py-20 fade-section scroll-reveal bg-gradient-to-b from-gray-50 via-white to-gray-50"
         id="recent-projects"
       >
-        <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start sm:px-10 max-sm:gap-4">
-          <h2 className="text-[#7FFF00] fontNF text-2xl sm:text-4xl text-center hero-heading-shadow reveal-from-left">OUR RECENT PROJECTS</h2>
-          <p className="text-lg fontMont font-normal w-1/2 hidden sm:block reveal-from-right">
-            Take a look at our latest roofing, siding, and exterior work across Long Island. Each project reflects our dedication to quality and customer satisfaction.
-          </p>
-          <p className="text-sm fontMont font-normal sm:hidden text-center reveal-from-right">
-            Take a look at our latest roofing, siding, and exterior work across Long Island. Each project reflects our dedication to quality and customer satisfaction.
-          </p>
+        {/* Section Header */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14">
+          <div className="text-center reveal-from-bottom">
+            <h2 className="text-[#7FFF00] fontNF text-3xl sm:text-4xl lg:text-5xl uppercase hero-heading-shadow mb-4">
+              OUR RECENT PROJECTS
+            </h2>
+            <p className="fontMont text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Take a look at our latest roofing, siding, and exterior work across Long Island. Each project reflects our dedication to quality and customer satisfaction.
+            </p>
+            <div className="w-20 h-1 bg-gradient-to-r from-[#007FFF] to-[#7FFF00] rounded-full mx-auto mt-6" />
+          </div>
         </div>
-        <div className="projects-carousel w-full h-[350px] sm:h-[400px] lg:h-[480px] relative reveal-from-bottom overflow-hidden px-4 sm:px-0">
-          <div className="swiper mySwiper relative h-full">
+
+        {/* Full-Width Projects Slider */}
+        <div className="w-full reveal-from-bottom mb-10 sm:mb-14">
+          <div className="swiper mySwiper">
             <div className="swiper-wrapper">
               {[
                 "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy9W99N9yFvNa-TFHz-IYx-MrLBJNass1ZJCC95of_72lM7gAf9MbWKTjwlX6vhmofg2GurOLmiypPZRSI1Drlc65V9a2GIvo_HDPsmfbB_9ZNqiHeSEqMDd_8zJOnjv3_4Q3qWc4b1Oh8=s680-w680-h510-rw",
@@ -732,22 +1139,36 @@ function App() {
                 "https://lh3.googleusercontent.com/p/AF1QipM28ua4X8rYN7kU5FxwikoAGgWpkrHUD68mvMnr=s680-w680-h510-rw",
                 "https://lh3.googleusercontent.com/p/AF1QipOk-kfvY4EG8KLXRP30mIh0EHE49uJWgJTNwLXV=s680-w680-h510-rw",
               ].map((src, idx) => (
-                <div
-                  key={src + idx}
-                  className="swiper-slide !h-full"
-                >
-                  <div className="project-card group">
+                <div key={src + idx} className="swiper-slide">
+                  <div className="project-slide-card">
                     <img 
                       src={src} 
                       alt={`Construction project ${idx + 1}`} 
-                      className="project-img"
-                      loading="lazy"
+                      className="project-slide-img"
                     />
-                    <div className="project-overlay"></div>
+                    <div className="project-slide-overlay" />
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center reveal-from-bottom">
+            <p className="fontMont text-gray-600 mb-6 text-sm sm:text-base">
+              See more of our completed projects and client testimonials
+            </p>
+            <button
+              onClick={() => window.open('https://www.google.com/maps/place/Long+Island+Construction+Plus', '_blank')}
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#7FFF00] to-[#55d500] hover:from-[#6ffb00] hover:to-[#72f201] text-black font-bold rounded-2xl shadow-[0_10px_30px_rgba(127,255,0,0.3)] hover:shadow-[0_15px_40px_rgba(127,255,0,0.45)] transition-all duration-300 hover:scale-105 fontMont text-sm sm:text-base"
+            >
+              <span>View All Projects on Google</span>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
