@@ -1293,7 +1293,7 @@ function App() {
           >
             <div
               ref={reviewsTrackRef}
-              className="flex gap-5 px-2 snap-x snap-mandatory overflow-x-auto hide-scrollbar"
+              className="flex gap-5 px-2 snap-x snap-mandatory overflow-x-auto overflow-y-hidden hide-scrollbar"
             >
               {[
                 {
