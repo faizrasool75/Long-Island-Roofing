@@ -592,7 +592,11 @@ function App() {
         </button>
       </header>
 
-      <div id="home" className="hero-section fade-section relative min-h-screen flex items-center overflow-hidden" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
+      <div
+        id="home"
+        className="hero-section fade-section relative min-h-screen flex items-center overflow-hidden pt-24 sm:pt-28"
+        style={{ width: "100vw", marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)" }}
+      >
         {/* Background with Overlay */}
         <div className="absolute inset-0 hero-background bg-cover bg-center">
           <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/50" />
