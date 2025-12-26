@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
+// Get base URL for assets
+const getAssetUrl = (path) => {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
+};
+
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Our Recent Projects", href: "#recent-projects" },
@@ -9,46 +15,46 @@ const navLinks = [
 
 const servicesData = [
   {
-    icon: "/assets/svg/service-1.svg",
+    icon: "assets/svg/service-1.svg",
     title: "Residential Roofing & Repair",
     detail:
       "Emergency patching through complete re-roofs with premium shingles and honest estimates.",
   },
   {
-    icon: "/assets/svg/service-2.svg",
+    icon: "assets/svg/service-2.svg",
     title: "Cedar Roofing & Siding",
     detail:
       "Expert cedar craftsmanship that balances rustic appeal with long-term protection.",
   },
   {
-    icon: "/assets/svg/service-3.svg",
+    icon: "assets/svg/service-3.svg",
     title: "Siding Installation & Repair",
     detail:
       "Seamless siding installs and repairs that refresh curb appeal across Nassau and Suffolk.",
   },
   {
-    icon: "/assets/svg/service-4.svg",
+    icon: "assets/svg/service-4.svg",
     title: "Gutters & Copper Work",
     detail:
       "Custom gutter profiles and copper detailing keep foundations dry and look sharp.",
   },
   {
-    icon: "/assets/svg/service-5.svg",
+    icon: "assets/svg/service-5.svg",
     title: "Chimney Building & Repair",
     detail: "Stacked chimney rebuilds and waterproofing ensure safe, storm-ready vents.",
   },
   {
-    icon: "/assets/svg/service-6.svg",
+    icon: "assets/svg/service-6.svg",
     title: "Flat & Commercial Roofing",
     detail: "CRE, TPO, and EPDM installs with commercial warranties for peace of mind.",
   },
   {
-    icon: "/assets/svg/service-7.svg",
+    icon: "assets/svg/service-7.svg",
     title: "Rubber Roofing",
     detail: "Rubber roofing membranes for low-slope builds that need flexibility and durability.",
   },
   {
-    icon: "/assets/svg/service-8.svg",
+    icon: "assets/svg/service-8.svg",
     title: "Metal Roofing",
     detail: "Modern metal panels that resist wind, hail, and deliver long service life.",
   },
@@ -603,7 +609,7 @@ function App() {
         <div className="h-full flex flex-col p-6">
           {/* Mobile Menu Header */}
           <div className="flex justify-between items-center mb-8">
-            <img src="/assets/images/logo.png" alt="Long Island Construction Plus+" className="w-36" />
+            <img src={getAssetUrl("assets/images/logo.png")} alt="Long Island Construction Plus+" className="w-36" />
             <button
               onClick={() => setMobileMenuOpen(false)}
               className="w-12 h-12 rounded-full hover:rotate-90 text-white bg-[#7FFF00] hover:bg-white hover:text-black flex justify-center items-center text-2xl transition-all duration-300"
@@ -674,7 +680,7 @@ function App() {
       >
         <a href="#home" onClick={(e) => handleSmoothScroll(e, "#home")}>
           <img
-            src="/assets/images/logo.png"
+            src={getAssetUrl("assets/images/logo.png")}
             alt="Long Island Construction Plus+"
             className="w-28 sm:w-40 lg:w-48 transition-all duration-200 hover:scale-105"
           />
@@ -1048,7 +1054,7 @@ function App() {
                         : 'bg-gradient-to-br from-[#e8f4ff] to-[#CCE5FF] group-hover:from-[#CCE5FF] group-hover:to-[#b3d9ff]'
                     }`}>
                       <img 
-                        src={service.icon} 
+                        src={getAssetUrl(service.icon)} 
                         alt="" 
                         className={`h-6 w-6 sm:h-7 sm:w-7 transition-all duration-300 ${
                           isOpen ? 'brightness-0 invert scale-110' : 'scale-100'
@@ -1239,7 +1245,7 @@ function App() {
                 {/* Image 1 - Main */}
                 <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white">
                   <img
-                    src="/assets/images/service_img1.webp"
+                    src={getAssetUrl("assets/images/service_img1.webp")}
                     alt="Professional Roofing Work"
                     className="w-full h-[250px] sm:h-[300px] lg:h-[350px] object-cover"
                     loading="lazy"
@@ -1250,7 +1256,7 @@ function App() {
                 {/* Image 2 - Secondary */}
                 <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white">
                   <img
-                    src="/assets/images/service_img2.webp"
+                    src={getAssetUrl("assets/images/service_img2.webp")}
                     alt="Quality Construction Services"
                     className="w-full h-[250px] sm:h-[300px] lg:h-[350px] object-cover"
                     loading="lazy"
@@ -1577,7 +1583,7 @@ function App() {
             >
               Read more on Google
               <span className="w-8 h-8 p-2 bg-black group-hover:bg-white flex justify-center rounded-full items-center transition-all duration-300 group-hover:rotate-45">
-                <img src="/assets/svg/arrow.svg" alt="" className="w-full h-full object-contain group-hover:brightness-0" />
+                <img src={getAssetUrl("assets/svg/arrow.svg")} alt="" className="w-full h-full object-contain group-hover:brightness-0" />
               </span>
             </button>
           </div>
@@ -1587,7 +1593,7 @@ function App() {
       <div 
         className="w-full py-12 sm:py-16 md:py-20 fade-section scroll-reveal relative overflow-hidden"
         style={{
-          backgroundImage: "url('/assets/images/footerBeforeBanner.png')",
+          backgroundImage: `url('${getAssetUrl("assets/images/footerBeforeBanner.png")}')`,
           backgroundPosition: "bottom center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
@@ -1665,7 +1671,7 @@ function App() {
             
             {/* Logo & Description */}
             <div className="flex flex-col gap-3 text-white fontMont text-sm">
-              <img className="w-[80%] sm:w-[70%] pb-3" src="/assets/images/logo.png" alt="Long Island Construction Plus+" />
+              <img className="w-[80%] sm:w-[70%] pb-3" src={getAssetUrl("assets/images/logo.png")} alt="Long Island Construction Plus+" />
               <p className="text-sm text-white/90 leading-relaxed">
                 Your trusted partner for premium roofing, siding, and construction services across Long Island. Quality workmanship, honest pricing, guaranteed satisfaction.
               </p>
@@ -1705,13 +1711,13 @@ function App() {
             <div className="text-white fontMont text-sm flex flex-col gap-2.5">
               <h2 className="uppercase font-black text-lg sm:text-base mb-1">Contact Information</h2>
               {[
-                { icon: "/assets/svg/phone.svg", label: "(631) 484-0098", type: "phone" },
-                { icon: "/assets/svg/map.svg", label: "Serving Suffolk County & Nassau County", type: "text" },
-                { icon: "/assets/svg/email.svg", label: "liconstructionplus@gmail.com", type: "email" },
-                { icon: "/assets/svg/time.svg", label: "Monday – Saturday | 8:00 AM – 6:00 PM", type: "text" },
+                { icon: "assets/svg/phone.svg", label: "(631) 484-0098", type: "phone" },
+                { icon: "assets/svg/map.svg", label: "Serving Suffolk County & Nassau County", type: "text" },
+                { icon: "assets/svg/email.svg", label: "liconstructionplus@gmail.com", type: "email" },
+                { icon: "assets/svg/time.svg", label: "Monday – Saturday | 8:00 AM – 6:00 PM", type: "text" },
               ].map((item) => (
                 <div key={item.label} className="flex gap-3 items-start">
-                  <img src={item.icon} alt="" className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <img src={getAssetUrl(item.icon)} alt="" className="w-5 h-5 mt-0.5 flex-shrink-0" />
                   {item.type === "phone" ? (
                     <a 
                       href="tel:+16314840098" 
